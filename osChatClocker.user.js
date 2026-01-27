@@ -7,18 +7,18 @@
 // @match        *://onlinesequencer.net/forum/chat_frame.php*
 // @grant        none
 // @run-at       document-end
+// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatClocker.user.js
+// @downloadURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatClocker.user.js
 // ==/UserScript==
 
 (function() {
     'use strict';
 
-    // Settings & State Management
     let blockedIds = JSON.parse(localStorage.getItem('blockedMemberIds')) || ["9812"];
     let blockPMs = JSON.parse(localStorage.getItem('blockPMs')) === true;
     let savedPos = JSON.parse(localStorage.getItem('blockerButtonPos')) || { top: '50px', left: '50px' };
     let isMinimized = JSON.parse(localStorage.getItem('blockerMinimized')) === true;
 
-    // Helper: Add ID to list and refresh
     const blockUser = (id) => {
         if (!blockedIds.includes(id)) {
             blockedIds.push(id);
@@ -27,7 +27,6 @@
         }
     };
 
-    // Inject styles for the "Inline" block buttons
     const style = document.createElement('style');
     style.textContent = `
         .os-block-btn {
@@ -54,7 +53,6 @@
     `;
     document.head.appendChild(style);
 
-    // Create the Floating UI
     const host = document.createElement('div');
     host.id = 'blocker-host';
     document.body.appendChild(host);
@@ -128,14 +126,12 @@
     shadow.appendChild(container);
     updateUIState(isMinimized);
 
-    // Button Logic: Minimize
     shadow.getElementById('min-toggle').onclick = () => {
         isMinimized = !isMinimized;
         localStorage.setItem('blockerMinimized', isMinimized);
         updateUIState(isMinimized);
     };
 
-    // Button Logic: Save
     shadow.getElementById('save-btn').onclick = () => {
         const val = shadow.getElementById('ids').value;
         const list = val.split(',').map(s => s.trim()).filter(s => s);
@@ -144,7 +140,6 @@
         location.reload();
     };
 
-    // Dragging Logic
     let dragging = false, relX = 0, relY = 0;
     shadow.getElementById('header').onmousedown = (e) => {
         dragging = true;
@@ -165,11 +160,9 @@
         }
     });
 
-    // The Filtering Engine
     const applyFilters = (node) => {
         if (!node || node.nodeType !== 1) return;
 
-        // 1. Process Chat Messages
         const chats = node.classList?.contains('chat') ? [node] : node.querySelectorAll('.chat');
         chats.forEach(c => {
             const link = c.querySelector('a[href*="/members/"]');
@@ -193,7 +186,6 @@
             }
         });
 
-        // 2. Process Sidebar Users
         const users = node.classList?.contains('user') ? [node] : node.querySelectorAll('.user');
         users.forEach(u => {
             const link = u.querySelector('a[href*="/members/"]');
