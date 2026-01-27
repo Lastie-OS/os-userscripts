@@ -7,8 +7,8 @@
 // @match        *://onlinesequencer.net/forum/chat_frame.php*
 // @grant        none
 // @run-at       document-end
-// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatClocker.user.js
-// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatClocker.user.js
+// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js
+// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js
 // ==/UserScript==
 
 (function() {
