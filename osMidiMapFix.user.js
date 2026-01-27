@@ -7,8 +7,8 @@
 // @match        *://*.onlinesequencer.net/*
 // @grant        none
 // @run-at       document-idle
-// @updateURL    
-// @downloadURL   
+// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js
+// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js
 // ==/UserScript==
 
 (function() {
