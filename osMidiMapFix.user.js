@@ -2,7 +2,7 @@
 // @name         OS Midi Map Fix
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Sets the midiInstrumentMap to General MIDI standards (1-128)
+// @description  Fixes the OS Midi Export by setting the midiInstrumentMap variable to match General MIDI standards (1-128)
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/*
 // @grant        none
