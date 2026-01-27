@@ -8,7 +8,7 @@
 // @grant        none
 // @run-at       document-end
 // @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatClocker.user.js
-// @downloadURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatClocker.user.js
+// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatClocker.user.js
 // ==/UserScript==
 
 (function() {
