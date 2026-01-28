@@ -1,6 +1,6 @@
 // ==UserScript==
-// @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @name         OS Midi Map Fix
+// @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Fixes the OS Midi Export by setting the midiInstrumentMap variable to match General MIDI standards (1-128)
