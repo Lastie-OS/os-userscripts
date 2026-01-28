@@ -2,8 +2,8 @@
 // @name         OS Chat Name Styler
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      1.28.2026.11
-// @description  Customizable name styles with name overrides
+// @version      1.28.2026.12
+// @description  Customizable name styles with special character fix
 // @author       Lastie
 // @match        https://onlinesequencer.net/forum/chat_frame.php*
 // @grant        none
@@ -21,15 +21,18 @@
     styleEngine.id = 'os-chat-custom-css';
     document.documentElement.appendChild(styleEngine);
 
+    const escapeCSS = (str) => str.replace(/([!"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~])/g, "\\$1");
+
     const rebuildCSS = () => {
         let css = '';
         for (const [user, config] of Object.entries(userStyles)) {
+            const escapedUser = escapeCSS(user);
             const glow = config.glow ? `text-shadow: 0 0 ${config.size/3}px ${config.color} !important;` : 'text-shadow: none !important;';
             const fontRule = config.font ? `font-family: "${config.font}", sans-serif !important;` : '';
             css += `
-                a[data-user="${user}"],
-                a[data-user="${user}"] span,
-                .user-${user} {
+                a[data-user="${escapedUser}"],
+                a[data-user="${escapedUser}"] span,
+                .user-${escapedUser} {
                     color: ${config.color} !important;
                     -webkit-text-fill-color: ${config.color} !important;
                     ${fontRule}
