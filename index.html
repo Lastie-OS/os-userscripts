@@ -1,4 +1,206 @@
-<html>
-<head><title>static page for my userscripts so the the src works! (will redesign later, im just feeling lazy rn)</title></head>
-<body><h1>static page for my userscripts so the the src works! (will redesign later, im just feeling lazy rn)</h1></body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="icon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OS Userscripts!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=PT+Sans&display=swap" rel="stylesheet">
+    <style>
+        /* --- INTEGRATED CSS VARIABLES --- */
+        :root {
+            --bg-charcoal: #0a0a0c;
+            --pink-neon: #ff0080;
+            --pink-light: #ff71ce;
+            --pink-soft: #ffb7ce;
+            --pink-glow: rgba(255, 0, 128, 0.5);
+            --border-rose: rgba(255, 113, 206, 0.302);
+        }
+
+        /* --- GLOBAL STYLES --- */
+        body {
+            background-color: var(--bg-charcoal) !important;
+            background-image: 
+                radial-gradient(circle at 5% 5%, rgba(255, 0, 128, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 95% 95%, rgba(255, 113, 206, 0.1) 0%, transparent 50%) !important;
+            color: #e0e0e0 !important;
+            font-family: 'PT Sans', Tahoma, sans-serif !important;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            background-color: #1a1a1a;
+            border-bottom: 2px solid var(--pink-light);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .os_title {
+            font-family: 'Comfortaa', cursive;
+            font-size: 2.5em;
+            color: var(--pink-soft);
+            text-shadow: 0 0 10px var(--pink-glow);
+            margin: 0;
+        }
+
+        .os_subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        #content {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid #333;
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .thead {
+            background: var(--pink-light) !important;
+            color: #000 !important;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tborder {
+            border: 1px solid var(--border-rose);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .trow {
+            background: #1e1e1e;
+            padding: 20px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Centered Section Header Style */
+        .tcat-header {
+            background: #111 !important;
+            padding: 12px;
+            text-align: center;
+            border-top: 2px solid var(--pink-neon);
+            border-bottom: 2px solid var(--pink-neon);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .button {
+            background: linear-gradient(135deg, var(--pink-neon), var(--pink-light)) !important;
+            color: #fff !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 10px 20px !important;
+            font-weight: 900 !important;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px var(--pink-glow);
+            transition: 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--pink-neon);
+            color: #000 !important;
+        }
+
+        a { color: var(--pink-light); text-decoration: none; transition: 0.2s; }
+        a:hover { text-shadow: 0 0 8px var(--pink-light); }
+
+        .script-name {
+            font-size: 1.2em;
+            color: var(--pink-soft);
+            font-family: 'Comfortaa', cursive;
+        }
+
+        .description {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        footer {
+            margin: 40px 0;
+            font-size: 0.8em;
+            opacity: 0.5;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--pink-neon); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <header id="os_header">
+        <div id="os_logo">
+            <h1 class="os_title">OS Premium!</h1>
+            <div class="os_subtitle">Always free! <br><em>(i would never make someone pay for something they dont need)</em></div>
+        </div>
+    </header>
+
+    <div id="content">
+        <div class="tborder">
+            <div class="thead"><h3><center><b>Scripts</b></center></h3></div>
+
+            <div class="tcat-header">
+                <div class="script-name" style="font-size: 1em;">Chat</div>
+            </div>
+            
+            <div class="trow">
+                <div>
+                    <div class="script-name">OS Floating Chat Blocker</div>
+                    <div class="description">Block idoit's messages with a persistent, minimizable floating UI.</div>
+                </div>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js" target="_blank" class="button">Install</a>
+            </div>
+
+            <div class="trow">
+                <div>
+                    <div class="script-name">OS Chat BBCode Editor</div>
+                    <div class="description">OS BBcode editor for chat... what else do you need to know?!?</div>
+                </div>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osBBcodeEditor.user.js" target="_blank" class="button">Install</a>
+            </div>
+
+            <div class="tcat-header">
+                <div class="script-name" style="font-size: 1em;">Sequencer</div>
+            </div>
+
+            <div class="trow">
+                <div>
+                    <div class="script-name">OS Midi Map Fix</div>
+                    <div class="description">Fixes the OS Midi Export by setting the midiInstrumentMap variable to match General MIDI standards <br>(1-128)</div>
+                </div>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js" target="_blank" class="button">Install</a>
+            </div>
+        </div>
+
+        <div style="padding: 10px; font-size: 0.85em; text-align: center;">
+            Need help? <span style="color: var(--pink-soft); font-family: 'Comfortaa';"><a href="mailto:lastie.OnSeq@gmail.com">Reach out to me! </a></span>
+        </div>
+    </div>
+</body>
 </html>
