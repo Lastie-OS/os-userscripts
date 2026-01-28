@@ -1,4 +1,5 @@
 // ==UserScript==
+// @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @name         OS Chat BBCode Editor
 // @namespace    http://tampermonkey.net/
 // @version      2.8
