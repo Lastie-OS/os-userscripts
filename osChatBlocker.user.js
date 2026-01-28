@@ -15,7 +15,7 @@
 (function() {
     'use strict';
 
-    let blockedIds = JSON.parse(localStorage.getItem('blockedMemberIds')) || ["9812"];
+    let blockedIds = JSON.parse(localStorage.getItem('blockedMemberIds')) || [""];
     let blockPMs = JSON.parse(localStorage.getItem('blockPMs')) === true;
     let savedPos = JSON.parse(localStorage.getItem('blockerButtonPos')) || { top: '50px', left: '50px' };
     let isMinimized = JSON.parse(localStorage.getItem('blockerMinimized')) === true;
