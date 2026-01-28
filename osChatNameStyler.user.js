@@ -7,9 +7,9 @@
 // @author       Lastie
 // @match        https://onlinesequencer.net/forum/chat_frame.php*
 // @grant        none
+// @run-at       document-start
 // @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js
 // @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js
-// @run-at       document-start
 // ==/UserScript==
 
 (function() {
