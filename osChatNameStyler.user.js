@@ -2,8 +2,8 @@
 // @name         OS Chat Name Styler
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      1.28.2026.9
-// @description  Customizable name styles
+// @version      1.28.2026.10
+// @description  Customizable name styles with name overrides
 // @author       Lastie
 // @match        https://onlinesequencer.net/forum/chat_frame.php*
 // @grant        GM_addStyle
@@ -20,6 +20,20 @@
     const styleEngine = document.createElement('style');
     styleEngine.id = 'os-chat-custom-css';
     document.documentElement.appendChild(styleEngine);
+
+    const applyNameOverrides = () => {
+        for (const [user, config] of Object.entries(userStyles)) {
+            if (config.alias) {
+                const links = document.querySelectorAll(`a[data-user="${user}"]`);
+                links.forEach(link => {
+                    const textNode = link.querySelector('span') || link;
+                    if (textNode.innerText !== config.alias) {
+                        textNode.innerText = config.alias;
+                    }
+                });
+            }
+        }
+    };
 
     const rebuildCSS = () => {
         let css = '';
@@ -39,13 +53,14 @@
                 }\n`;
         }
         styleEngine.innerHTML = css;
+        applyNameOverrides();
     };
 
     const showPicker = (username) => {
         const old = document.getElementById('os-styler-popup');
         if (old) old.remove();
 
-        const conf = userStyles[username] || { color: '#ffb7ce', font: '', size: 13, glow: true };
+        const conf = userStyles[username] || { color: '#ffb7ce', font: '', size: 13, glow: true, alias: '' };
 
         const popup = document.createElement('div');
         popup.id = 'os-styler-popup';
@@ -70,15 +85,22 @@
 
         popup.innerHTML = `
             <div style="font-weight:bold; color:#ffb7ce; border-bottom:1px solid #333; padding-bottom:5px; text-align:center;">Editing: ${username}</div>
+            
+            <label style="font-size:10px;">Name Override</label>
+            <input type="text" id="os-input-alias" value="${conf.alias || ''}" placeholder="Original: ${username}" style="background:#222; color:white; border:1px solid #ffb7ce; border-radius:4px; padding:5px; font-size:11px;">
+
             <label style="font-size:10px;">Color & Bloom</label>
             <div style="display:flex; gap:10px; align-items:center;">
                 <input type="color" id="os-input-color" value="${conf.color}" style="width:45px; height:25px; border:none; background:none; cursor:pointer;">
                 <label style="font-size:10px;"><input type="checkbox" id="os-input-glow" ${conf.glow ? 'checked' : ''}> Enable Glow</label>
             </div>
+            
             <label style="font-size:10px;">Font Family</label>
             <input type="text" id="os-input-font" value="${conf.font}" placeholder="Inherit site font" style="background:#222; color:white; border:1px solid #ffb7ce; border-radius:4px; padding:5px; font-size:11px;">
+            
             <label style="font-size:10px;">Text Size: <span id="os-val-size">${conf.size}</span>px</label>
             <input type="range" id="os-input-size" min="8" max="30" value="${conf.size}" style="cursor:pointer; accent-color:#ffb7ce;">
+            
             <button id="os-btn-save" style="margin-top:10px; background:#ffb7ce; color:#1a1a1a; border:none; border-radius:6px; padding:8px; font-weight:bold; cursor:pointer;">Save & Exit</button>
         `;
         document.body.appendChild(popup);
@@ -88,7 +110,8 @@
                 color: document.getElementById('os-input-color').value,
                 font: document.getElementById('os-input-font').value,
                 size: parseInt(document.getElementById('os-input-size').value),
-                glow: document.getElementById('os-input-glow').checked
+                glow: document.getElementById('os-input-glow').checked,
+                alias: document.getElementById('os-input-alias').value
             };
             document.getElementById('os-val-size').innerText = userStyles[username].size;
             localStorage.setItem('osChatUserStyles', JSON.stringify(userStyles));
@@ -105,7 +128,7 @@
             const username = link.getAttribute('data-user');
             const icon = document.createElement('span');
             icon.innerHTML = ' <small>style</small>';
-            icon.style.cssText = 'cursor:pointer; font-size:12px; margin-left:4px; vertical-align:middle; filter: drop-shadow(0 0 2px pink);';
+            icon.style.cssText = 'cursor:pointer; font-size:10px; margin-left:4px; vertical-align:middle; opacity: 0.7;';
             icon.onclick = (e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -114,6 +137,7 @@
             link.after(icon);
             link.classList.add('os-styler-applied');
         });
+        applyNameOverrides();
     };
 
     rebuildCSS();
