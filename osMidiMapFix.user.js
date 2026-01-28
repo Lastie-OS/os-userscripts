@@ -2,11 +2,11 @@
 // @name         OS Midi Map Fix
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.28.2026
 // @description  Fixes the OS Midi Export by setting the midiInstrumentMap variable to match General MIDI standards (1-128)
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/*
-// @grant        none
+// @grant        GM_addStyle
 // @run-at       document-idle
 // @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js
 // @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js
