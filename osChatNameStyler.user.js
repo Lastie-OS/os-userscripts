@@ -2,11 +2,11 @@
 // @name         OS Chat Name Styler
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      1.28.2026.12
+// @version      1.28.2026.13
 // @description  Customizable name styles with special character fix
 // @author       Lastie
 // @match        https://onlinesequencer.net/forum/chat_frame.php*
-// @grant        none
+// @grant        GM_addStyle
 // @run-at       document-start
 // @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js
 // @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js
