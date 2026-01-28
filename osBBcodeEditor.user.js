@@ -6,7 +6,7 @@
 // @description  OS BBcode editor for chat... what else do you need to know???
 // @author       Lastie
 // @match        https://onlinesequencer.net/forum/chat_frame.php*
-// @grant        none
+// @grant        GM_addStyle
 // @run-at       document-end
 // @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osBBcodeEditor.user.js
 // @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osBBcodeEditor.user.js
