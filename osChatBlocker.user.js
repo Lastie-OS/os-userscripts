@@ -1,6 +1,6 @@
 // ==UserScript==
-// @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @name         OS Floating Chat Blocker
+// @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    http://tampermonkey.net/
 // @version      1.27.2026.4
 // @description  A thingy to block idoit's messages in chat with minimize and easy-block buttons.
