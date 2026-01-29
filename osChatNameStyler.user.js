@@ -2,7 +2,7 @@
 // @name         OS Chat Name Styler
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      1.28.2026.18
+// @version      1.28.2026.19
 // @description  Customizable name styles
 // @author       Lastie
 // @match        https://onlinesequencer.net/forum/chat_frame.php*
@@ -119,7 +119,7 @@
                 }
             }
 
-\            if (link.closest('#user_list') && !link.classList.contains('os-styler-applied')) {
+            if (link.closest('#user_list') && !link.classList.contains('os-styler-applied')) {
                 const icon = document.createElement('span');
                 icon.innerHTML = ' <small style="color:#ffb7ce; font-weight:bold; cursor:pointer; font-size:10px; opacity:0.6;">|style</small>';
                 icon.onclick = (e) => {
