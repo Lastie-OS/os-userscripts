@@ -12,7 +12,7 @@
 // @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js
 // ==/UserScript==
 
-(function() {
+(function() { 
     'use strict';
 
     let userStyles = JSON.parse(localStorage.getItem('osChatUserStyles') || '{}');
