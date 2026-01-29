@@ -2,7 +2,7 @@
 // @name         Online Sequencer: Midnight Rose (Chat)
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      1.28.2026
+// @version      1.29.2026
 // @description  OS pink chat theme thingy
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/chat
@@ -141,6 +141,14 @@ span[data-user="MiraDev"],
     font-weight: bold !important;
 }
 
+span[data-user="Geekgazer"],
+.user-Geekgazer {
+    color: rgb(255, 0, 85) !important;
+    font-family: serif !important;
+    text-shadow: 0 0 5px rgba(255, 183, 206, 0.4) !important;
+    font-weight: bold !important;
+}
+
 body, #chat_container {
     display: flex !important;
     flex-direction: column !important;
@@ -170,17 +178,27 @@ a.robo-label {
     document.head.appendChild(style);
 
     const colorizeNames = () => {
-        const spans = document.querySelectorAll('span');
-        const targetNames = ["Lastie", "FemaleChara", "MiraDev"];
+    const spans = document.querySelectorAll('span');
+    const targetNames = ["Lastie", "FemaleChara", "MiraDev", "Geekgazer"];
 
-        spans.forEach(span => {
-            if (targetNames.includes(span.textContent.trim())) {
-                span.style.color = "#ffb7ce";
-                span.style.fontFamily = "'Comfortaa', cursive";
-                span.style.fontWeight = "bold";
-            }
-        });
-    };
+    const nameStyles = [
+        ["#ffb7ce", "'Comfortaa', cursive", "bold"],
+        ["#ffb7ce", "'Comfortaa', cursive", "bold"],
+        ["#ffb7ce", "'Comfortaa', cursive", "bold"],
+        ["rgb(255, 0, 85)", "serif", "bold"]
+    ];
+
+    spans.forEach(span => {
+        const nameIndex = targetNames.indexOf(span.textContent.trim());
+
+        if (nameIndex !== -1) {
+            const [color, font, weight] = nameStyles[nameIndex];
+            span.style.color = color;
+            span.style.fontFamily = font;
+            span.style.fontWeight = weight;
+        }
+    });
+};
 
     const observer = new MutationObserver(colorizeNames);
     observer.observe(document.body, { childList: true, subtree: true });
