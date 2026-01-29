@@ -2,12 +2,12 @@
 // @name         OS Chat Name Styler
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      1.28.2026.16
+// @version      1.28.2026.18
 // @description  Customizable name styles
 // @author       Lastie
 // @match        https://onlinesequencer.net/forum/chat_frame.php*
 // @grant        GM_addStyle
-// @run-at       document-start
+// @run-at       document-idle
 // @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js
 // @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js
 // ==/UserScript==
@@ -112,7 +112,6 @@
             const username = link.getAttribute('data-user');
             const config = userStyles[username];
 
-            // Apply Alias everywhere
             if (config && config.alias) {
                 const target = link.querySelector('span') || link;
                 if (target.textContent !== config.alias) {
@@ -120,8 +119,7 @@
                 }
             }
 
-            // Only add the style button if the link is inside the #user_list sidebar
-            if (link.closest('#user_list') && !link.classList.contains('os-styler-applied')) {
+\            if (link.closest('#user_list') && !link.classList.contains('os-styler-applied')) {
                 const icon = document.createElement('span');
                 icon.innerHTML = ' <small style="color:#ffb7ce; font-weight:bold; cursor:pointer; font-size:10px; opacity:0.6;">|style</small>';
                 icon.onclick = (e) => {
