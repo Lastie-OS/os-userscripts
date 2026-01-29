@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lastie-os.github.io/os-userscripts/">
@@ -10,7 +11,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OS Userscripts!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=PT+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=PT+Sans&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-charcoal: #0a0a0c;
@@ -24,7 +26,7 @@
 
         body {
             background-color: var(--bg-charcoal) !important;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 5% 5%, rgba(255, 0, 128, 0.15) 0%, transparent 60%),
                 radial-gradient(circle at 95% 95%, rgba(255, 113, 206, 0.1) 0%, transparent 50%) !important;
             color: #e0e0e0 !important;
@@ -43,7 +45,7 @@
             border-bottom: 2px solid var(--pink-light);
             padding: 20px 0;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .os_title {
@@ -70,10 +72,9 @@
             margin-top: 40px;
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        /* DISCLAIMER STYLE */
         .disclaimer-box {
             background: rgba(255, 0, 128, 0.1);
             border: 2px dashed var(--pink-neon);
@@ -85,9 +86,20 @@
         }
 
         @keyframes pulse-border {
-            0% { border-color: var(--pink-neon); box-shadow: 0 0 5px var(--pink-glow); }
-            50% { border-color: #fff; box-shadow: 0 0 15px var(--pink-glow); }
-            100% { border-color: var(--pink-neon); box-shadow: 0 0 5px var(--pink-glow); }
+            0% {
+                border-color: var(--pink-neon);
+                box-shadow: 0 0 5px var(--pink-glow);
+            }
+
+            50% {
+                border-color: #fff;
+                box-shadow: 0 0 15px var(--pink-glow);
+            }
+
+            100% {
+                border-color: var(--pink-neon);
+                box-shadow: 0 0 5px var(--pink-glow);
+            }
         }
 
         .disclaimer-text {
@@ -98,7 +110,6 @@
             font-size: 1.1em;
         }
 
-        /* MODAL STYLE FOR RETURN VISITS */
         #install-alert {
             display: none;
             position: fixed;
@@ -122,11 +133,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 999;
         }
 
-        /* REST OF YOUR STYLES */
         .thead {
             background: var(--pink-light) !important;
             color: #000 !important;
@@ -184,8 +194,15 @@
             color: #000 !important;
         }
 
-        a { color: var(--pink-light); text-decoration: none; transition: 0.2s; }
-        a:hover { text-shadow: 0 0 8px var(--pink-light); }
+        a {
+            color: var(--pink-light);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        a:hover {
+            text-shadow: 0 0 8px var(--pink-light);
+        }
 
         .script-name {
             font-size: 1.2em;
@@ -199,62 +216,105 @@
             margin-top: 5px;
         }
 
-        footer {
-            margin: 40px 0;
-            font-size: 0.8em;
-            opacity: 0.5;
-        }
-
         .preview-img {
-            max-width: 100%;
+            max-width: 150px;
             height: auto;
-            border-radius: 8px;
-            margin-top: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
             border: 1px solid var(--pink-light);
-            box-shadow: 0 0 10px var(--pink-glow);
-            display: block; /* Prevents inline spacing issues */
+            cursor: zoom-in;
+            transition: transform 0.2s;
+            display: block;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--pink-neon); border-radius: 10px; }
+        .preview-img:hover {
+            transform: scale(1.05);
+            border-color: var(--pink-neon);
+        }
+
+        #image-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1001;
+            max-width: 90%;
+            max-height: 85vh;
+            border: 2px solid var(--pink-neon);
+            box-shadow: 0 0 30px var(--pink-glow);
+            border-radius: 8px;
+            background: #000;
+        }
+
+        #modal-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink-neon);
+            border-radius: 10px;
+        }
     </style>
 </head>
+
 <body>
 
-    <div id="overlay" class="overlay"></div>
+    <div id="overlay" class="overlay" onclick="closeImage()"></div>
+
     <div id="install-alert">
         <h2 style="color: var(--pink-neon); font-family: 'Comfortaa';">INSTALLING?</h2>
-        <p>Don't forget! After installing a userscript, you <strong>MUST RESTART YOUR PC</strong> (or at least your browser) for changes to take effect!</p>
+        <p>Don't forget! After installing a userscript, you <strong>MUST RESTART YOUR PC</strong> (or at least your
+            browser) for changes to take effect!</p>
         <button onclick="closeAlert()" class="button">I UNDERSTAND</button>
+    </div>
+
+    <div id="image-modal">
+        <img id="modal-img" src="" alt="Full Preview">
+        <div
+            style="color: var(--pink-soft); text-align: center; padding: 5px; font-size: 0.8em; font-family: 'Comfortaa';">
+            Click background to close</div>
     </div>
 
     <header id="os_header">
         <div id="os_logo">
             <h1 class="os_title">OS Premium!</h1>
-            <div class="os_subtitle">Always free! <br><em>(i would never make someone pay for something they dont need)</em></div>
+            <div class="os_subtitle">Always free! <br><em>(i would never make someone pay for something they dont
+                    need)</em></div>
         </div>
     </header>
 
     <div id="content">
         <div class="disclaimer-box">
-            <div class="disclaimer-text">
-                ⚠️ IMPORTANT: RESTART YOUR PC AFTER INSTALLING ANY SCRIPT! ⚠️
-            </div>
+            <div class="disclaimer-text">⚠️ IMPORTANT: RESTART YOUR PC AFTER INSTALLING ANY SCRIPT! ⚠️</div>
         </div>
 
         <div class="tborder">
-            <div class="thead"><h3><center><b>Scripts</b></center></h3></div>
+            <div class="thead">
+                <h3>
+                    <center><b>Scripts</b></center>
+                </h3>
+            </div>
 
             <div class="tcat-header">
                 <div class="script-name" style="font-size: 1em;">Chat</div>
             </div>
-            
+
             <div class="trow">
                 <div>
                     <div class="script-name">OS Floating Chat Blocker</div>
                     <div class="description">Block idoit's messages with a persistent, minimizable floating UI.</div>
                 </div>
-                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js" target="_blank" class="button install-link">Install</a>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js"
+                    target="_blank" class="button install-link">Install</a>
             </div>
 
             <div class="trow">
@@ -262,7 +322,8 @@
                     <div class="script-name">OS Chat BBCode Editor</div>
                     <div class="description">OS BBcode editor for chat... what else do you need to know?!?</div>
                 </div>
-                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osBBcodeEditor.user.js" target="_blank" class="button install-link">Install</a>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osBBcodeEditor.user.js"
+                    target="_blank" class="button install-link">Install</a>
             </div>
 
             <div class="trow">
@@ -270,7 +331,8 @@
                     <div class="script-name">OS Chat Name Styler</div>
                     <div class="description">Customizable name styles</div>
                 </div>
-                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js" target="_blank" class="button install-link">Install</a>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js"
+                    target="_blank" class="button install-link">Install</a>
             </div>
 
             <div class="tcat-header">
@@ -281,9 +343,10 @@
                 <div>
                     <div class="script-name">Online Sequencer: Midnight Rose (Chat)</div>
                     <div class="description">OS pink chat theme thingy</div>
-                    <img class="preview-img" alt="Midnight Rose Chat Preview"  href="midnightRose.png">
+                    <img src="midnightRose.png" class="preview-img" alt="Thumbnail" onclick="openImage(this.src)">
                 </div>
-                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidnightRoseChatTheme.user.js" target="_blank" class="button install-link">Install</a>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidnightRoseChatTheme.user.js"
+                    target="_blank" class="button install-link">Install</a>
             </div>
 
             <div class="tcat-header">
@@ -293,14 +356,17 @@
             <div class="trow">
                 <div>
                     <div class="script-name">OS Midi Map Fix</div>
-                    <div class="description">Fixes the OS Midi Export by setting the midiInstrumentMap variable to match General MIDI standards <br>(1-128)</div>
+                    <div class="description">Fixes the OS Midi Export by setting the midiInstrumentMap variable to match
+                        General MIDI standards <br>(1-128)</div>
                 </div>
-                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js" target="_blank" class="button install-link">Install</a>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js"
+                    target="_blank" class="button install-link">Install</a>
             </div>
         </div>
 
         <div style="padding: 10px; font-size: 0.85em; text-align: center;">
-            Need help? <span style="color: var(--pink-soft); font-family: 'Comfortaa';"><a href="mailto:lastie.OnSeq@gmail.com">Reach out to me! </a></span>
+            Need help? <span style="color: var(--pink-soft); font-family: 'Comfortaa';"><a
+                    href="mailto:lastie.OnSeq@gmail.com">Reach out to me! </a></span>
         </div>
     </div>
 
@@ -308,12 +374,10 @@
         let installClicked = false;
 
         document.querySelectorAll('.install-link').forEach(link => {
-            link.addEventListener('click', () => {
-                installClicked = true;
-            });
+            link.addEventListener('click', () => { installClicked = true; });
         });
 
-        window.onfocus = function() {
+        window.onfocus = function () {
             if (installClicked) {
                 document.getElementById('overlay').style.display = 'block';
                 document.getElementById('install-alert').style.display = 'block';
@@ -325,6 +389,20 @@
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('install-alert').style.display = 'none';
         }
+
+        function openImage(src) {
+            document.getElementById('modal-img').src = src;
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('image-modal').style.display = 'block';
+        }
+
+        function closeImage() {
+            if (document.getElementById('install-alert').style.display === 'block') {return};
+
+            document.getElementById('image-modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
     </script>
 </body>
+
 </html>
