@@ -19,6 +19,7 @@
             --pink-soft: #ffb7ce;
             --pink-glow: rgba(255, 0, 128, 0.5);
             --border-rose: rgba(255, 113, 206, 0.302);
+            --warning-yellow: #ffcc00;
         }
 
         body {
@@ -72,6 +73,60 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
+        /* DISCLAIMER STYLE */
+        .disclaimer-box {
+            background: rgba(255, 0, 128, 0.1);
+            border: 2px dashed var(--pink-neon);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% { border-color: var(--pink-neon); box-shadow: 0 0 5px var(--pink-glow); }
+            50% { border-color: #fff; box-shadow: 0 0 15px var(--pink-glow); }
+            100% { border-color: var(--pink-neon); box-shadow: 0 0 5px var(--pink-glow); }
+        }
+
+        .disclaimer-text {
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1em;
+        }
+
+        /* MODAL STYLE FOR RETURN VISITS */
+        #install-alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1a1a1a;
+            border: 3px solid var(--pink-neon);
+            padding: 30px;
+            z-index: 1000;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 0 50px #000;
+            max-width: 400px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 999;
+        }
+
+        /* REST OF YOUR STYLES */
         .thead {
             background: var(--pink-light) !important;
             color: #000 !important;
@@ -150,11 +205,28 @@
             opacity: 0.5;
         }
 
+        .preview-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid var(--pink-light);
+            box-shadow: 0 0 10px var(--pink-glow);
+            display: block; /* Prevents inline spacing issues */
+        }
+
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: var(--pink-neon); border-radius: 10px; }
     </style>
 </head>
 <body>
+
+    <div id="overlay" class="overlay"></div>
+    <div id="install-alert">
+        <h2 style="color: var(--pink-neon); font-family: 'Comfortaa';">INSTALLING?</h2>
+        <p>Don't forget! After installing a userscript, you <strong>MUST RESTART YOUR PC</strong> (or at least your browser) for changes to take effect!</p>
+        <button onclick="closeAlert()" class="button">I UNDERSTAND</button>
+    </div>
 
     <header id="os_header">
         <div id="os_logo">
@@ -164,6 +236,12 @@
     </header>
 
     <div id="content">
+        <div class="disclaimer-box">
+            <div class="disclaimer-text">
+                ⚠️ IMPORTANT: RESTART YOUR PC AFTER INSTALLING ANY SCRIPT! ⚠️
+            </div>
+        </div>
+
         <div class="tborder">
             <div class="thead"><h3><center><b>Scripts</b></center></h3></div>
 
@@ -176,7 +254,7 @@
                     <div class="script-name">OS Floating Chat Blocker</div>
                     <div class="description">Block idoit's messages with a persistent, minimizable floating UI.</div>
                 </div>
-                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js" target="_blank" class="button">Install</a>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js" target="_blank" class="button install-link">Install</a>
             </div>
 
             <div class="trow">
@@ -184,7 +262,7 @@
                     <div class="script-name">OS Chat BBCode Editor</div>
                     <div class="description">OS BBcode editor for chat... what else do you need to know?!?</div>
                 </div>
-                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osBBcodeEditor.user.js" target="_blank" class="button">Install</a>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osBBcodeEditor.user.js" target="_blank" class="button install-link">Install</a>
             </div>
 
             <div class="trow">
@@ -192,7 +270,20 @@
                     <div class="script-name">OS Chat Name Styler</div>
                     <div class="description">Customizable name styles</div>
                 </div>
-                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js" target="_blank" class="button">Install</a>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js" target="_blank" class="button install-link">Install</a>
+            </div>
+
+            <div class="tcat-header">
+                <div class="script-name" style="font-size: 1em;">Themes <i>(only one rn)</i></div>
+            </div>
+
+            <div class="trow">
+                <div>
+                    <div class="script-name">Online Sequencer: Midnight Rose (Chat)</div>
+                    <div class="description">OS pink chat theme thingy</div>
+                    <img class="preview-img" alt="Midnight Rose Chat Preview"  href="midnightRose.png">
+                </div>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidnightRoseChatTheme.user.js" target="_blank" class="button install-link">Install</a>
             </div>
 
             <div class="tcat-header">
@@ -204,7 +295,7 @@
                     <div class="script-name">OS Midi Map Fix</div>
                     <div class="description">Fixes the OS Midi Export by setting the midiInstrumentMap variable to match General MIDI standards <br>(1-128)</div>
                 </div>
-                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js" target="_blank" class="button">Install</a>
+                <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js" target="_blank" class="button install-link">Install</a>
             </div>
         </div>
 
@@ -212,8 +303,28 @@
             Need help? <span style="color: var(--pink-soft); font-family: 'Comfortaa';"><a href="mailto:lastie.OnSeq@gmail.com">Reach out to me! </a></span>
         </div>
     </div>
+
+    <script>
+        let installClicked = false;
+
+        document.querySelectorAll('.install-link').forEach(link => {
+            link.addEventListener('click', () => {
+                installClicked = true;
+            });
+        });
+
+        window.onfocus = function() {
+            if (installClicked) {
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('install-alert').style.display = 'block';
+                installClicked = false;
+            }
+        };
+
+        function closeAlert() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('install-alert').style.display = 'none';
+        }
+    </script>
 </body>
-
 </html>
-
-
