@@ -2,7 +2,7 @@
 // @name         OS Chat BBCode Editor
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026.1
+// @version      2.1.2026.2
 // @description  OS BBcode editor for chat... what else do you need to know???
 // @author       Lastie
 // @match        *://onlinesequencer.net/forum/chat_frame.php*
@@ -70,6 +70,7 @@
             { label: 'I', tag: 'i', type: 'wrap' },
             { label: 'U', tag: 'u', type: 'wrap' },
             { label: 'S', tag: 's', type: 'wrap' },
+            { label: 'Code', tag: 'code', type: 'wrap' },
             { label: 'Link', tag: 'url', type: 'wrap' },
             { label: 'Font', tag: 'font=Arial', closeTag: 'font', type: 'wrap' },
             { label: 'Align', tag: 'align=center', closeTag: 'align', type: 'wrap' },
