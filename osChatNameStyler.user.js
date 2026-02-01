@@ -6,7 +6,7 @@
 // @description  Customizable name styles
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/forum/chat_frame.php*
-// @match         *.://seq.onl/forum/chat_frame.php*
+// @match        *://seq.onl/forum/chat_frame.php*
 // @grant        GM_addStyle
 // @run-at       document-idle
 // @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatNameStyler.user.js
