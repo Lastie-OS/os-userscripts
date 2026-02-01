@@ -1,14 +1,13 @@
 // ==UserScript==
-// @name         OS Adblock
-// @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
-// @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026.2
-// @description  Removes pesky ads on OS by deleting all add iframes on ad generation
-// @author       Lastie
-// @match        *://*.onlinesequencer.net/*
-// @grant        GM_addStyle
-// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osAdBlock.user.js
-// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osAdBlock.user.js
+// @name          OS Adblock
+// @icon          https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
+// @version       2.1.2026.2
+// @description   Removes pesky ads on OS by deleting all add iframes on ad generation
+// @author        Lastie
+// @match         *://*.onlinesequencer.net/*
+// @grant         GM_addStyle
+// @updateURL     https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osAdBlock.user.js
+// @downloadURL   https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osAdBlock.user.js
 // ==/UserScript==
 
 (function() {
