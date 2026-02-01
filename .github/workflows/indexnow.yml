@@ -17,6 +17,11 @@ jobs:
             "keyLocation": "https://lastie-os.github.io/os-userscripts/bb4e6c58e87647258bff430770c2b5a8.txt",
             "urlList": [
               "https://lastie-os.github.io/os-userscripts/",
-              "https://lastie-os.github.io/os-userscripts/osBBcodeEditor.user.js"
+              "https://lastie-os.github.io/os-userscripts/osChatBlocker.user.js",
+              "https://lastie-os.github.io/os-userscripts/osBBcodeEditor.user.js",
+              "https://lastie-os.github.io/os-userscripts/osChatNameStyler.user.js",
+              "https://lastie-os.github.io/os-userscripts/osMidnightRoseChatTheme.user.js",
+              "https://lastie-os.github.io/os-userscripts/osMidiMapFix.user.js",
+              "https://lastie-os.github.io/os-userscripts/osAdBlock.user.js"
             ]
           }'
