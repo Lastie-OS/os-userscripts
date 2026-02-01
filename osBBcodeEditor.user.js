@@ -2,10 +2,11 @@
 // @name         OS Chat BBCode Editor
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      1.28.2026.2
+// @version      2.1.2026
 // @description  OS BBcode editor for chat... what else do you need to know???
 // @author       Lastie
 // @match        https://onlinesequencer.net/forum/chat_frame.php*
+// @match         *.://seq.onl/forum/chat_frame.php*
 // @grant        GM_addStyle
 // @run-at       document-end
 // @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osBBcodeEditor.user.js
