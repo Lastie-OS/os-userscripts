@@ -2,7 +2,7 @@
 // @name         OS Adblock
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026
+// @version      2.1.2026.2
 // @description  Removes pesky ads on OS by deleting all add iframes on ad generation
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/*
@@ -18,15 +18,17 @@
         const ads = document.querySelectorAll('iframe');
 
         ads.forEach(ad => {
-            if (ad.id === 'chat_frame') {
+            if (ad.id === 'mira-player-frame') {
+                return;
+            }
+
+            if (ad.id === 'chat_frame' || ad.src.includes('googleads') || ad.id.includes('ad')) {
                 ad.remove();
             }
         });
     };
 
     deleteAds();
-
     const observer = new MutationObserver(deleteAds);
     observer.observe(document.body, { childList: true, subtree: true });
-
 })();
