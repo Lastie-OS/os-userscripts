@@ -2,10 +2,10 @@
 // @name         OS Chat Name Styler
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026
+// @version      2.1.2026.2
 // @description  Customizable name styles
 // @author       Lastie
-// @match        https://onlinesequencer.net/forum/chat_frame.php*
+// @match        *://*.onlinesequencer.net/forum/chat_frame.php*
 // @match         *.://seq.onl/forum/chat_frame.php*
 // @grant        GM_addStyle
 // @run-at       document-idle
