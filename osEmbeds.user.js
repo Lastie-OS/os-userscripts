@@ -2,7 +2,7 @@
 // @name         OS Embeds
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026.82
+// @version      2.1.2026.84
 // @description  Floating os media embedder (made to specifically work with chat, but works in other places too)
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/*
@@ -13,7 +13,7 @@
 // @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osEmbeds.user.js
 // ==/UserScript==
 
-// version 83 - ready for publication
+// update 2.1.2026.83 was the publish
 
 (function() {
     'use strict';
@@ -69,72 +69,83 @@
         const isVocaroo = h.includes('voca.ro') || h.includes('vocaroo.com');
         const isBandcamp = h.includes('bandcamp.com');
         const isApple = h.includes('music.apple.com');
-        const isAmazon = h.includes('music.amazon.com');
         const isTidal = h.includes('tidal.com');
-        const isIdagio = h.includes('idagio.com');
         const isDeezer = h.includes('deezer.com');
 
         let contentHtml = "";
         win.classList.remove('os-scaled');
 
-        if (isYTPlaylist) {
-            win.style.width = "560px"; win.style.height = "350px";
-            let listId = new URL(url).searchParams.get('list');
-            contentHtml = `<iframe src="https://www.youtube.com/embed/videoseries?list=${listId}&autoplay=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
-        }
-        else if (isYT) {
-            win.style.width = "560px"; win.style.height = "350px";
-            let videoId = url.includes('watch?v=') ? url.split('v=')[1].split('&')[0] : url.split('/').pop().split('?')[0];
-            contentHtml = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
-        }
-        else if (isDeezer) {
-            win.style.width = "450px"; win.style.height = "335px";
-            let deezerEmbed = url.replace("deezer.com/track/", "widget.deezer.com/widget/dark/track/");
-            contentHtml = `<iframe src="${deezerEmbed}" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>`;
-        }
-        else if (isTidal) {
-            win.style.width = "500px"; win.style.height = "155px";
-            let tidalEmbed = url.replace("tidal.com/tracks/", "embed.tidal.com/tracks/").replace("tidal.com/browse/track/", "embed.tidal.com/tracks/");
-            contentHtml = `<iframe src="${tidalEmbed}" allow="encrypted-media; fullscreen; clipboard-write" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>`;
-        }
-        else if (isApple) {
-            win.style.width = "600px"; win.style.height = "210px";
-            let appleEmbed = url.replace("music.apple.com", "embed.music.apple.com");
-            contentHtml = `<iframe allow="autoplay *; encrypted-media *; fullscreen *" src="${appleEmbed}"></iframe>`;
-        }
-        else if (isBandcamp) {
-            win.style.width = "400px"; win.style.height = "309px";
-            contentHtml = `<iframe src="https://bandcamp.com/EmbeddedPlayer/url=${encodeURIComponent(url)}/size=large/bgcol=333333/linkcol=fe7eaf/artwork=small/transparent=true/" seamless></iframe>`;
-        }
-        else if (isVocaroo) {
-            win.style.width = "320px"; win.style.height = "95px";
-            let vocId = url.split('/').pop().split('?')[0];
-            contentHtml = `<div class="os-centered-content"><iframe src="https://vocaroo.com/embed/${vocId}?autoplay=1" allow="autoplay"></iframe></div>`;
-        }
-        else if (isSpot) {
-            win.style.width = "400px"; win.style.height = "187px";
-            let spotUrl = url.replace("open.spotify.com/", "open.spotify.com/embed/");
-            contentHtml = `<iframe src="${spotUrl}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
-        }
-        else if (isSC) {
-            win.style.width = "450px"; win.style.height = "335px";
-            const scEmbedUrl = `https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}&color=%23ff0080&auto_play=true&visual=true`;
-            contentHtml = `<iframe scrolling="no" frameborder="no" allow="autoplay" src="${scEmbedUrl}"></iframe>`;
-        }
-        else if (isAudio) {
-            win.style.width = "400px"; win.style.height = "120px";
-            const playerHtml = `<html><body style="background:#000; display:flex; align-items:center; justify-content:center; height:100vh; margin:0;"><audio controls autoplay style="width:90%; filter: hue-rotate(110deg) brightness(1.2);"><source src="${url}"></audio></body></html>`;
-            contentHtml = `<div class="os-centered-content"><iframe src="${URL.createObjectURL(new Blob([playerHtml], {type: 'text/html'}))}"></iframe></div>`;
-        }
-        else if (isImage) {
-            win.style.width = "300px"; win.style.height = "300px";
-            contentHtml = `<div class="os-centered-content"><img src="${url}" style="max-width:100%; max-height:100%; object-fit: contain;"></div>`;
-        }
-        else {
-            win.classList.add('os-scaled');
-            win.style.width = "800px"; win.style.height = "500px";
-            const sep = url.includes('?') ? '&' : '?';
-            contentHtml = `<iframe id="os-player-frame" src="${url + sep}os_embed=true" allowfullscreen></iframe>`;
+        switch (true) {
+            case isYTPlaylist: {
+                win.style.width = "560px"; win.style.height = "350px";
+                let listId = new URL(url).searchParams.get('list');
+                contentHtml = `<iframe src="https://www.youtube.com/embed/videoseries?list=${listId}&autoplay=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+                break;
+            }
+            case isYT: {
+                win.style.width = "560px"; win.style.height = "350px";
+                let videoId = url.includes('watch?v=') ? url.split('v=')[1].split('&')[0] : url.split('/').pop().split('?')[0];
+                contentHtml = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+                break;
+            }
+            case isDeezer: {
+                win.style.width = "450px"; win.style.height = "335px";
+                let deezerEmbed = url.replace("deezer.com/track/", "widget.deezer.com/widget/dark/track/");
+                contentHtml = `<iframe src="${deezerEmbed}" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>`;
+                break;
+            }
+            case isTidal: {
+                win.style.width = "500px"; win.style.height = "155px";
+                let tidalEmbed = url.replace("tidal.com/tracks/", "embed.tidal.com/tracks/").replace("tidal.com/browse/track/", "embed.tidal.com/tracks/");
+                contentHtml = `<iframe src="${tidalEmbed}" allow="encrypted-media; fullscreen; clipboard-write" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>`;
+                break;
+            }
+            case isApple: {
+                win.style.width = "600px"; win.style.height = "210px";
+                let appleEmbed = url.replace("music.apple.com", "embed.music.apple.com");
+                contentHtml = `<iframe allow="autoplay *; encrypted-media *; fullscreen *" src="${appleEmbed}"></iframe>`;
+                break;
+            }
+            case isBandcamp: {
+                win.style.width = "400px"; win.style.height = "309px";
+                contentHtml = `<iframe src="https://bandcamp.com/EmbeddedPlayer/url=${encodeURIComponent(url)}/size=large/bgcol=333333/linkcol=fe7eaf/artwork=small/transparent=true/" seamless></iframe>`;
+                break;
+            }
+            case isVocaroo: {
+                win.style.width = "320px"; win.style.height = "95px";
+                let vocId = url.split('/').pop().split('?')[0];
+                contentHtml = `<div class="os-centered-content"><iframe src="https://vocaroo.com/embed/${vocId}?autoplay=1" allow="autoplay"></iframe></div>`;
+                break;
+            }
+            case isSpot: {
+                win.style.width = "400px"; win.style.height = "187px";
+                let spotUrl = url.replace("open.spotify.com/", "open.spotify.com/embed/");
+                contentHtml = `<iframe src="${spotUrl}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+                break;
+            }
+            case isSC: {
+                win.style.width = "450px"; win.style.height = "335px";
+                const scEmbedUrl = `https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}&color=%23ff0080&auto_play=true&visual=true`;
+                contentHtml = `<iframe scrolling="no" frameborder="no" allow="autoplay" src="${scEmbedUrl}"></iframe>`;
+                break;
+            }
+            case isAudio: {
+                win.style.width = "400px"; win.style.height = "120px";
+                const playerHtml = `<html><body style="background:#000; display:flex; align-items:center; justify-content:center; height:100vh; margin:0;"><audio controls autoplay style="width:90%; filter: hue-rotate(110deg) brightness(1.2);"><source src="${url}"></audio></body></html>`;
+                contentHtml = `<div class="os-centered-content"><iframe src="${URL.createObjectURL(new Blob([playerHtml], {type: 'text/html'}))}"></iframe></div>`;
+                break;
+            }
+            case isImage: {
+                win.style.width = "300px"; win.style.height = "300px";
+                contentHtml = `<div class="os-centered-content"><img src="${url}" style="max-width:100%; max-height:100%; object-fit: contain;"></div>`;
+                break;
+            }
+            default: {
+                win.classList.add('os-scaled');
+                win.style.width = "800px"; win.style.height = "500px";
+                const sep = url.includes('?') ? '&' : '?';
+                contentHtml = `<iframe id="os-player-frame" src="${url + sep}os_embed=true" allowfullscreen></iframe>`;
+            }
         }
 
         win.innerHTML = `
