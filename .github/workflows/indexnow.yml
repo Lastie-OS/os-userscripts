@@ -12,9 +12,9 @@ jobs:
           curl -X POST "https://api.indexnow.org/indexnow" \
           -H "Content-Type: application/json; charset=utf-8" \
           -d '{
-            "host": "lastie-os.github.io",
+            "host": "lastie-os.github.io/os-userscripts",
             "key": "bb4e6c58e87647258bff430770c2b5a8",
-            "keyLocation": "https://lastie-os.github.io/bb4e6c58e87647258bff430770c2b5a8.txt",
+            "keyLocation": "https://lastie-os.github.io/os-userscripts/bb4e6c58e87647258bff430770c2b5a8.txt",
             "urlList": [
               "https://lastie-os.github.io/os-userscripts/",
               "https://lastie-os.github.io/os-userscripts/osBBcodeEditor.user.js"
