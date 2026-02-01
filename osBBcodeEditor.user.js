@@ -2,7 +2,7 @@
 // @name         OS Chat BBCode Editor
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026
+// @version      2.1.2026.1
 // @description  OS BBcode editor for chat... what else do you need to know???
 // @author       Lastie
 // @match        *://onlinesequencer.net/forum/chat_frame.php*
@@ -22,6 +22,7 @@
             .replace(/\[i\](.*?)\[\/i\]/gi, '<i>$1</i>')
             .replace(/\[u\](.*?)\[\/u\]/gi, '<u>$1</u>')
             .replace(/\[s\](.*?)\[\/s\]/gi, '<strike>$1</strike>')
+            .replace(/\[code\]([\s\S]*?)\[\/code\]/gi, '<pre style="background:rgba(0,0,0,0.5); border:1px solid #ff71ce; padding:8px; border-radius:4px; font-family:monospace; color:#00f3ff; overflow-x:auto; white-space:pre-wrap;">$1</pre>')
             .replace(/\[hr\]/gi, '<hr style="border:0; border-top:1px solid rgba(255,113,206,0.5); margin: 8px 0;">')
             .replace(/\[font=(.*?)\](.*?)\[\/font\]/gi, '<span style="font-family:$1">$2</span>')
             .replace(/\[align=(left|center|right)\](.*?)\[\/align\]/gi, '<div style="text-align:$1">$2</div>')
