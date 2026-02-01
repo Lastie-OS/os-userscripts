@@ -2,7 +2,7 @@
 // @name         OS Midi Map Fix
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      1.28.2026.2
+// @version      1.28.2026.3
 // @description  Fixes the OS Midi Export by setting the midiInstrumentMap variable to match General MIDI standards (1-128)
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/*
