@@ -5,8 +5,8 @@
 // @version      2.1.2026
 // @description  OS BBcode editor for chat... what else do you need to know???
 // @author       Lastie
-// @match        https://onlinesequencer.net/forum/chat_frame.php*
-// @match         *.://seq.onl/forum/chat_frame.php*
+// @match        *://onlinesequencer.net/forum/chat_frame.php*
+// @match        *://seq.onl/forum/chat_frame.php*
 // @grant        GM_addStyle
 // @run-at       document-end
 // @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osBBcodeEditor.user.js
