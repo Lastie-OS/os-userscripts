@@ -6,6 +6,7 @@
 // @description  Fixes the OS Midi Export by setting the midiInstrumentMap variable to match General MIDI standards (1-128)
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/*
+// @match        *://seq.onl/*
 // @grant        GM_addStyle
 // @run-at       document-idle
 // @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js
