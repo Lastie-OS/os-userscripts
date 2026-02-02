@@ -2,7 +2,7 @@
 // @name         OS Embeds
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026.91
+// @version      2.1.2026.92
 // @description  Floating os media embedder (made with OS Chat in mind, but works in other places)
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/*
@@ -119,8 +119,7 @@
                 contentHtml = `<div class="os-centered-content"><img src="${url}" style="max-width:100%; max-height:100%; object-fit: contain;"></div>`;
                 break;
             }
-            case 0:
-            default: {
+            case 0: {
                 win.classList.add('os-scaled');
                 win.style.width = "800px"; win.style.height = "500px";
                 const sep = url.includes('?') ? '&' : '?';
