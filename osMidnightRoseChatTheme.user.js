@@ -2,7 +2,7 @@
 // @name         Online Sequencer: Midnight Rose (Chat)
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026
+// @version      2.1.2026.1
 // @description  OS pink chat theme thingy
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/forum/chat_frame.php*
@@ -100,11 +100,14 @@ html, body {
     flex: 1 !important;
     font-family: inherit;
     line-height: 1.5 !important;
-    resize: none !important;
+    position: fixed;
+    bottom: 2px;
+    left: 2px;
 
     field-sizing: content !important;
     min-height: 45px !important;
     max-height: 250px !important;
+    width: ;
 }
 
 #chatbutton {
@@ -119,6 +122,8 @@ html, body {
     cursor: pointer;
     flex-shrink: 0 !important;
     text-transform: uppercase;
+    bottom: 2px;
+    right: 2px;
 }
 
 ::-webkit-scrollbar { width: 6px; }
