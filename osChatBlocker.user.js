@@ -1,14 +1,13 @@
 // ==UserScript==
-// @name         Online Sequencer: Midnight Rose (Chat)
-// @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
-// @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026.1
-// @description  OS pink chat theme thingy
-// @author       Lastie
-// @match        *://*.onlinesequencer.net/forum/chat_frame.php*
+// @name         OS Floating Chat Blocker
+// @namespace    http://tampermonkey.net/
+// @version      2.2.2026
+// @description  A thingy to block idoit's messages in chat with minimize and easy-block buttons.
+// @author       LastieOS
+// @match        *://onlinesequencer.net/forum/chat_frame.php*
 // @match        *://seq.onl/forum/chat_frame.php*
-// @grant        GM_addStyle
-// @run-at       document-idle
+// @grant        none
+// @run-at       document-end
 // @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js
 // @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js
 // ==/UserScript==
@@ -16,288 +15,194 @@
 (function() {
     'use strict';
 
-    const messageInput = document.getElementById('message');
-    if (messageInput && messageInput.tagName === 'INPUT') {
-        const textarea = document.createElement('textarea');
-        textarea.id = 'message';
-        textarea.name = messageInput.name;
-        textarea.placeholder = messageInput.placeholder + " (Ctrl+Enter to send)";
-        textarea.autocomplete = "off";
+    let blockedIds = JSON.parse(localStorage.getItem('blockedMemberIds')) || ["9812"];
+    let blockPMs = JSON.parse(localStorage.getItem('blockPMs')) === true;
+    let savedPos = JSON.parse(localStorage.getItem('blockerButtonPos')) || { top: '50px', left: '50px' };
+    let isMinimized = JSON.parse(localStorage.getItem('blockerMinimized')) === true;
 
-        textarea.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-
-        textarea.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.key === 'Enter') {
-                e.preventDefault();
-                if (typeof sendChat === 'function') {
-                    sendChat();
-                    this.style.height = '45px';
-                }
-            }
-        });
-
-        messageInput.parentNode.replaceChild(textarea, messageInput);
-    }
-
-    const themeCSS = `
-:root {
-    --bg-charcoal: #0a0a0c;
-    --pink-neon: #ff0080;
-    --pink-light: #ff71ce;
-    --pink-glow: rgba(255, 0, 128, 0.5);
-    --border-rose: rgba(255, 113, 206, 0.3);
-}
-
-html, body, #chat_container {
-    height: 100vh !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    display: flex !important;
-    flex-direction: column !important;
-    background-color: var(--bg-charcoal) !important;
-}
-
-html, body {
-    background-color: var(--bg-charcoal) !important;
-    background-image:
-        radial-gradient(circle at 5% 5%, rgba(255, 0, 128, 0.3) 0%, transparent 60%),
-        radial-gradient(circle at 95% 95%, rgba(255, 113, 206, 0.2) 0%, transparent 50%) !important;
-    background-attachment: fixed !important;
-}
-
-#messages {
-    flex: 1 1 auto !important;
-    overflow-y: auto !important;
-    padding: 10px !important;
-    padding-bottom: 40px;
-    background: transparent !important;
-}
-
-.tborder, #chat_table, #user_list {
-    background: rgba(15, 15, 20, 0.8) !important;
-    backdrop-filter: blur(10px) !important;
-    border: 1px solid var(--border-rose) !important;
-}
-
-#chat_form_container, .chat_form {
-    flex: 0 0 auto !important;
-    display: flex !important;
-    flex-direction: row !important;
-    /* Changed from flex-end to center to align the button and box middles */
-    align-items: center !important;
-    gap: 10px !important;
-    padding: 15px !important;
-    background: rgba(10, 10, 12, 0.95) !important;
-    border-top: 1px solid var(--border-rose) !important;
-}
-
-#message {
-    background: rgba(0, 0, 0, 0.8) !important;
-    border: 1px solid var(--border-rose) !important;
-    color: #fff !important;
-    border-radius: 8px !important;
-    padding: 12px !important;
-    /* Removed the massive padding-bottom */
-    flex: 1 !important;
-    font-family: inherit;
-    line-height: 1.5 !important;
-    resize: none !important;
-    field-sizing: content !important;
-    min-height: 45px !important;
-    max-height: 250px !important;
-    /* Ensures no extra margin is pushing it down */
-    margin: 0 !important;
-}
-
-#chatbutton {
-    background: linear-gradient(135deg, var(--pink-neon), var(--pink-light)) !important;
-    color: #fff !important;
-    border: none !important;
-    border-radius: 8px !important;
-    font-weight: 900 !important;
-    box-shadow: 0 4px 15px var(--pink-glow) !important;
-    height: 45px !important;
-    padding: 0 25px !important;
-    cursor: pointer;
-    flex-shrink: 0 !important;
-    text-transform: uppercase;
-}
-
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-thumb { background: var(--pink-neon); border-radius: 10px; }
-:root {
-    --bg-charcoal: #0a0a0c;
-    --pink-light: #ffb7ce; /* A softer "cute" light pink */
-    --border-rose: rgba(255, 113, 206, 0.3);
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
-
-span[data-user="Lastie"],
-span[data-user="FemaleChara"],
-span[data-user="MiraDev"],
-.user-Lastie, .user-FemaleChara, .user-MiraDev {
-    color: var(--pink-light) !important;
-    font-family: 'Comfortaa', 'Comic Sans MS', cursive !important;
-    text-shadow: 0 0 5px rgba(255, 183, 206, 0.4) !important;
-    font-weight: bold !important;
-}
-
-span[data-user="Geekgazer"],
-.user-Geekgazer {
-    color: rgb(255, 0, 85) !important;
-    font-family: serif !important;
-    text-shadow: 0 0 5px rgba(255, 183, 206, 0.4) !important;
-    font-weight: bold !important;
-}
-
-body, #chat_container {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100vh !important;
-    overflow: hidden !important;
-}
-
-#messages { flex: 1 1 auto !important; overflow-y: auto !important; min-height: 0 !important; }
-
-#message {
-    background: rgba(0, 0, 0, 0.7) !important;
-    border: 1px solid var(--border-rose) !important;
-    color: #fff !important;
-    border-radius: 8px !important;
-    padding: 12px !important;
-    field-sizing: content !important;
-    min-height: 45px !important;
-    max-height: 300px !important;
-}
-a.robo-label {
-    color: #a0ffa0 !important;
-}
-    `;
-
-    const style = document.createElement('style');
-    style.innerHTML = themeCSS;
-    document.head.appendChild(style);
-
-    const colorizeNames = () => {
-    const spans = document.querySelectorAll('span');
-    const targetNames = ["Lastie", "FemaleChara", "MiraDev", "Geekgazer"];
-
-    const nameStyles = [
-        ["#ffb7ce", "'Comfortaa', cursive", "bold"],
-        ["#ffb7ce", "'Comfortaa', cursive", "bold"],
-        ["#ffb7ce", "'Comfortaa', cursive", "bold"],
-        ["rgb(255, 0, 85)", "serif", "bold"]
-    ];
-
-    spans.forEach(span => {
-        const nameIndex = targetNames.indexOf(span.textContent.trim());
-
-        if (nameIndex !== -1) {
-            const [color, font, weight] = nameStyles[nameIndex];
-            span.style.color = color;
-            span.style.fontFamily = font;
-            span.style.fontWeight = weight;
+    const blockUser = (id) => {
+        if (!blockedIds.includes(id)) {
+            blockedIds.push(id);
+            localStorage.setItem('blockedMemberIds', JSON.stringify(blockedIds));
+            location.reload();
         }
-    });
-};
-
-    const observer = new MutationObserver(colorizeNames);
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    const sounds = {
-        default: 'https://lastie-os.github.io/typingSfx/Key.wav',
-        space: 'https://lastie-os.github.io/typingSfx/Space.wav',
-        backspace: 'https://lastie-os.github.io/typingSfx/Backspace.wav',
-        enter: 'https://lastie-os.github.io/typingSfx/Del.wav',
-        default2: 'https://lastie-os.github.io/typingSfx/Key2.wav',
-        space2: 'https://lastie-os.github.io/typingSfx/Space2.wav',
-        backspace2: 'https://lastie-os.github.io/typingSfx/Backspace2.wav3',
-        enter2: 'https://lastie-os.github.io/typingSfx/Del2.wav'
     };
 
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const style = document.createElement('style');
+    style.textContent = `
+        .os-block-btn {
+            cursor: pointer;
+            color: #ff71ce;
+            font-size: 10px;
+            margin-left: 6px;
+            text-shadow: 0 0 5px rgba(255, 113, 206, 0.5);
+            font-family: 'Comfortaa', sans-serif;
+            font-weight: bold;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .os-block-btn:hover { color: #fff; text-shadow: 0 0 8px #ff71ce; }
 
-const audioBuffers = {};
-async function loadSound(name, url) {
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
-    audioBuffers[name] = await audioCtx.decodeAudioData(arrayBuffer);
-}
+        /* Sidebar specific button styling */
+        .user .os-block-sidebar {
+            display: none;
+            color: #ff0080;
+            font-size: 9px;
+            margin-top: 2px;
+        }
+        .user:hover .os-block-sidebar { display: block; }
+    `;
+    document.head.appendChild(style);
 
-loadSound('default', sounds['default']);
-loadSound('space', sounds['space']);
-loadSound('backspace', sounds['backspace']);
-loadSound('enter', sounds['enter']);
-loadSound('bing', sounds['default2']);
+    const host = document.createElement('div');
+    host.id = 'blocker-host';
+    document.body.appendChild(host);
+    const shadow = host.attachShadow({mode: 'open'});
 
-const playSound = (name, isSpecial = false) => {
-    if (!audioBuffers[name]) return;
-    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const container = document.createElement('div');
+    container.id = 'draggable-window';
 
-    const source = audioCtx.createBufferSource();
-    source.buffer = audioBuffers[name];
+    const updateUIState = (min) => {
+        const contents = shadow.querySelectorAll('.window-content');
+        contents.forEach(el => el.style.display = min ? 'none' : 'block');
+        container.style.width = min ? '110px' : '230px';
+        shadow.getElementById('min-toggle').innerText = min ? '[+]' : '[−]';
+    };
 
-    const reverb = audioCtx.createConvolver();
-
-    const verbGain = audioCtx.createGain();
-    verbGain.gain.value = 2.3; // Reverb volume
-
-    let lastNode = source;
-
-    if (isSpecial) {
-        const delay = audioCtx.createDelay();
-        const feedback = audioCtx.createGain();
-
-        delay.delayTime.value = 0;
-        feedback.gain.value = 0;
-
-        delay.connect(feedback);
-        feedback.connect(delay);
-
-        source.connect(delay);
-        delay.connect(audioCtx.destination);
-    }
-
-    source.connect(audioCtx.destination);
-    source.start(0);
-};
-
-window.addEventListener('keydown', (e) => {
-    const el = document.activeElement;
-    const isInput = el.tagName === 'TEXTAREA' || (el.tagName === 'INPUT' && el.type === 'text');
-
-    if (isInput) {
-        if (e.key === 'Enter' && e.ctrlKey) {
-            playSound('enter', true);
-            if (typeof sendChat === 'function') {
-                sendChat();
-                if (el.id === 'message') el.style.height = '45px';
+    container.innerHTML = `
+        <style>
+            #draggable-window {
+                position: fixed;
+                z-index: 999999;
+                top: ${savedPos.top};
+                left: ${savedPos.left};
+                background: rgba(10, 10, 12, 0.9);
+                backdrop-filter: blur(8px);
+                border: 1px solid rgba(255, 113, 206, 0.4);
+                border-radius: 10px;
+                padding: 10px;
+                color: white;
+                font-family: 'Comfortaa', sans-serif;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+                transition: width 0.2s ease-in-out;
             }
-            return;
+            #header {
+                cursor: move;
+                font-weight: bold;
+                color: #ff71ce;
+                font-size: 11px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                user-select: none;
+            }
+            #min-toggle { cursor: pointer; padding-left: 10px; }
+            .divider { border-bottom: 1px solid rgba(255, 113, 206, 0.2); margin: 8px 0; }
+            textarea {
+                width: 100%; height: 60px; background: #111; color: #ffb7ce;
+                border: 1px solid rgba(255, 113, 206, 0.3); border-radius: 5px;
+                padding: 5px; font-family: monospace; resize: none; margin-bottom: 8px;
+                box-sizing: border-box; font-size: 11px;
+            }
+            .opt { font-size: 10px; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+            #save-btn {
+                width: 100%; background: linear-gradient(to right, #ff0080, #ff71ce);
+                color: white; border: none; border-radius: 5px; padding: 6px;
+                font-weight: bold; cursor: pointer; font-size: 10px;
+            }
+        </style>
+        <div id="header">
+            <span>CHAT BLOCKER</span>
+            <span id="min-toggle">[−]</span>
+        </div>
+        <div class="window-content divider"></div>
+        <textarea id="ids" class="window-content" placeholder="IDs here...">${blockedIds.join(', ')}</textarea>
+        <div class="opt window-content">
+            <input type="checkbox" id="pmCheck" ${blockPMs ? 'checked' : ''}>
+            <span>BLOCK PMS</span>
+        </div>
+        <button id="save-btn" class="window-content">SAVE & RELOAD</button>
+    `;
+
+    shadow.appendChild(container);
+    updateUIState(isMinimized);
+
+    shadow.getElementById('min-toggle').onclick = () => {
+        isMinimized = !isMinimized;
+        localStorage.setItem('blockerMinimized', isMinimized);
+        updateUIState(isMinimized);
+    };
+
+    shadow.getElementById('save-btn').onclick = () => {
+        const val = shadow.getElementById('ids').value;
+        const list = val.split(',').map(s => s.trim()).filter(s => s);
+        localStorage.setItem('blockedMemberIds', JSON.stringify(list));
+        localStorage.setItem('blockPMs', shadow.getElementById('pmCheck').checked);
+        location.reload();
+    };
+
+    let dragging = false, relX = 0, relY = 0;
+    shadow.getElementById('header').onmousedown = (e) => {
+        dragging = true;
+        relX = e.clientX - container.getBoundingClientRect().left;
+        relY = e.clientY - container.getBoundingClientRect().top;
+    };
+
+    document.addEventListener('mousemove', (e) => {
+        if (!dragging) return;
+        container.style.left = (e.clientX - relX) + 'px';
+        container.style.top = (e.clientY - relY) + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (dragging) {
+            dragging = false;
+            localStorage.setItem('blockerButtonPos', JSON.stringify({ top: container.style.top, left: container.style.left }));
         }
+    });
 
-        switch (e.key) {
-            case ' ': playSound('space'); break;
-            case 'Backspace': playSound('backspace'); break;
-            case 'Enter': playSound('enter'); break;
-            case 'ArrowUp':
-            case 'ArrowDown':
-            case 'ArrowLeft':
-            case 'ArrowRight':
-                playSound('default');
-                break;
-            default:
-                if (e.key.length === 1) playSound('default');
-                break;
-        }
-    }
-});
+    const applyFilters = (node) => {
+        if (!node || node.nodeType !== 1) return;
 
+        const chats = node.classList?.contains('chat') ? [node] : node.querySelectorAll('.chat');
+        chats.forEach(c => {
+            const link = c.querySelector('a[href*="/members/"]');
+            if (link) {
+                const id = link.getAttribute('href').split('/').pop();
+                if (blockedIds.includes(id)) {
+                    c.style.display = 'none';
+                    return;
+                }
+                if (!c.querySelector('.os-block-btn')) {
+                    const b = document.createElement('span');
+                    b.className = 'os-block-btn';
+                    b.innerText = '[✖]';
+                    b.onclick = () => blockUser(id);
+                    link.parentNode.insertBefore(b, link.nextSibling);
+                }
+            }
+            if (blockPMs) {
+                const text = c.querySelector('.message')?.innerText || "";
+                if (text.includes('->') || text.includes('(whisper)')) c.style.display = 'none';
+            }
+        });
 
+        const users = node.classList?.contains('user') ? [node] : node.querySelectorAll('.user');
+        users.forEach(u => {
+            const link = u.querySelector('a[href*="/members/"]');
+            if (link && !u.querySelector('.os-block-sidebar')) {
+                const id = link.getAttribute('href').split('/').pop();
+                const b = document.createElement('div');
+                b.className = 'os-block-btn os-block-sidebar';
+                b.innerText = 'BLOCK USER';
+                b.onclick = () => blockUser(id);
+                u.appendChild(b);
+            }
+        });
+    };
+
+    const obs = new MutationObserver(recs => recs.forEach(r => r.addedNodes.forEach(applyFilters)));
+    obs.observe(document.body, { childList: true, subtree: true });
+    applyFilters(document.body);
 
 })();
