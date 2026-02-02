@@ -11,6 +11,8 @@
 // @run-at       document-idle
 // ==/UserScript==
 
+// ver 2.1.2026.83 was the initial release
+
 (function() {
     'use strict';
 
