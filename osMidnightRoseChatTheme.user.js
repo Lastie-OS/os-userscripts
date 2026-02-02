@@ -7,6 +7,8 @@
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/forum/chat_frame.php*
 // @match        *://seq.onl/forum/chat_frame.php*
+// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidnightRoseChatTheme.user.js
+// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidnightRoseChatTheme.user.js
 // @grant        GM_addStyle
 // @run-at       document-idle
 // ==/UserScript==
