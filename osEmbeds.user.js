@@ -2,7 +2,7 @@
 // @name         OS Embeds
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026.90
+// @version      2.1.2026.91
 // @description  Floating os media embedder (made with OS Chat in mind, but works in other places)
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/*
@@ -129,7 +129,7 @@
 
         win.innerHTML = `
             <div class="os-embed-header" id="os-drag-handle">
-                <span>Media Player (Type: ${typeId})</span>
+                <span>Media Player</span>
                 <div class="os-controls">
                     <div class="os-btn" id="os-min">—</div>
                     <div class="os-btn" id="os-max">+</div>
