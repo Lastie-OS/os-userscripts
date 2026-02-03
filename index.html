@@ -5,20 +5,23 @@
     <title>Online Sequencer Userscripts | OS Premium</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <meta name="title" content="Online Sequencer Userscripts | OS Premium">
-    <meta name="description" content="Enhance your Online Sequencer experience with OS Premium: Chat styling, BBCode editors, MIDI map fixes, and Midnight Rose themes. 100% free!">
-    <meta name="keywords" content="Online Sequencer, userscripts, Tampermonkey, OS Chat, BBCode editor, Online Sequencer themes">
+    <meta name="description"
+        content="Enhance your Online Sequencer experience with OS Premium: Chat styling, BBCode editors, MIDI map fixes, and Midnight Rose themes. 100% free!">
+    <meta name="keywords"
+        content="Online Sequencer, userscripts, Tampermonkey, OS Chat, BBCode editor, Online Sequencer themes">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lastie-os.github.io/os-userscripts/">
     <meta property="og:title" content="OS Userscripts by Lastie">
-    <meta property="og:description" content="Userscripts for Online Sequencer: Chat styling, ad blocking, and MIDI fixes.">
+    <meta property="og:description"
+        content="Userscripts for Online Sequencer: Chat styling, ad blocking, and MIDI fixes.">
     <meta property="og:image" content="icon.png">
 
     <link rel="canonical" href="https://lastie-os.github.io/os-userscripts/" />
     <link rel="icon" type="image/png" href="icon.png">
-    
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org/",
@@ -38,7 +41,8 @@
     }
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=PT+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=PT+Sans&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-charcoal: #0a0a0c;
@@ -73,8 +77,11 @@
             text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
-        
-        nav { margin-top: 10px; }
+
+        nav {
+            margin-top: 10px;
+        }
+
         nav a {
             margin: 0 15px;
             font-family: 'Comfortaa', cursive;
@@ -121,9 +128,20 @@
         }
 
         @keyframes pulse-border {
-            0% { border-color: var(--pink-neon); box-shadow: 0 0 5px var(--pink-glow); }
-            50% { border-color: #fff; box-shadow: 0 0 15px var(--pink-glow); }
-            100% { border-color: var(--pink-neon); box-shadow: 0 0 5px var(--pink-glow); }
+            0% {
+                border-color: var(--pink-neon);
+                box-shadow: 0 0 5px var(--pink-glow);
+            }
+
+            50% {
+                border-color: #fff;
+                box-shadow: 0 0 15px var(--pink-glow);
+            }
+
+            100% {
+                border-color: var(--pink-neon);
+                box-shadow: 0 0 5px var(--pink-glow);
+            }
         }
 
         .disclaimer-text {
@@ -192,8 +210,15 @@
             color: #000 !important;
         }
 
-        a { color: var(--pink-light); text-decoration: none; transition: 0.2s; }
-        a:hover { text-shadow: 0 0 8px var(--pink-light); }
+        a {
+            color: var(--pink-light);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        a:hover {
+            text-shadow: 0 0 8px var(--pink-light);
+        }
 
         .script-name {
             font-size: 1.2em;
@@ -201,7 +226,11 @@
             font-family: 'Comfortaa', cursive;
         }
 
-        .description { font-size: 0.9em; color: #aaa; margin-top: 5px; }
+        .description {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: 5px;
+        }
 
         .preview-img {
             max-width: 150px;
@@ -214,13 +243,64 @@
             display: block;
         }
 
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 999; }
-        #install-alert { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1a1a1a; border: 3px solid var(--pink-neon); padding: 30px; z-index: 1000; text-align: center; border-radius: 15px; box-shadow: 0 0 50px #000; max-width: 400px; }
-        #image-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001; max-width: 90%; max-height: 85vh; border: 2px solid var(--pink-neon); box-shadow: 0 0 30px var(--pink-glow); border-radius: 8px; background: #000; }
-        #modal-img { display: block; width: 100%; height: auto; max-height: 80vh; border-radius: 6px; }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+        }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--pink-neon); border-radius: 10px; }
+        #install-alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1a1a1a;
+            border: 3px solid var(--pink-neon);
+            padding: 30px;
+            z-index: 1000;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 0 50px #000;
+            max-width: 400px;
+        }
+
+        #image-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1001;
+            max-width: 90%;
+            max-height: 85vh;
+            border: 2px solid var(--pink-neon);
+            box-shadow: 0 0 30px var(--pink-glow);
+            border-radius: 8px;
+            background: #000;
+        }
+
+        #modal-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink-neon);
+            border-radius: 10px;
+        }
     </style>
 </head>
 
@@ -229,13 +309,16 @@
 
     <div id="install-alert">
         <h2 style="color: var(--pink-neon); font-family: 'Comfortaa';">INSTALLING?</h2>
-        <p>After installing a userscript, you <strong>MAY NEED TO RESTART YOUR BROWSER</strong> for changes to take effect!</p>
+        <p>After installing a userscript, you <strong>MAY NEED TO RESTART YOUR BROWSER</strong> for changes to take
+            effect!</p>
         <button onclick="closeAlert()" class="button">I UNDERSTAND</button>
     </div>
 
     <div id="image-modal">
         <img id="modal-img" src="" alt="Full Preview">
-        <div style="color: var(--pink-soft); text-align: center; padding: 5px; font-size: 0.8em; font-family: 'Comfortaa';">Click background to close</div>
+        <div
+            style="color: var(--pink-soft); text-align: center; padding: 5px; font-size: 0.8em; font-family: 'Comfortaa';">
+            Click background to close</div>
     </div>
 
     <header id="os_header">
@@ -257,53 +340,21 @@
         </div>
 
         <div class="tborder">
-            <div class="thead"><h2>Userscript Directory</h2></div>
-
-            <section id="chat-section">
-                <div class="tcat-header"><div class="script-name" style="font-size: 1em;">Chat</div></div>
-                <div class="trow">
-                    <div>
-                        <div class="script-name">OS Floating Chat Blocker</div>
-                        <div class="description">Block users with a persistent UI.</div>
-                    </div>
-                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js" target="_blank" class="button install-link">Install</a>
-                </div>
-                <div class="trow">
-                    <div>
-                        <div class="script-name">OS Chat BBCode Editor</div>
-                        <div class="description">Adds a full BBCode editor interface.</div>
-                    </div>
-                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osBBcodeEditor.user.js" target="_blank" class="button install-link">Install</a>
-                </div>
-                <div class="trow">
-                    <div>
-                        <div class="script-name">OS Chat Name Styler</div>
-                        <div class="description">Apply customizable styles to usernames.</div>
-                    </div>
-                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osSliderTextInput.user.js" target="_blank" class="button install-link">Install</a>
-                </div>
-            </section>
-
-            <section id="theme-section">
-                <div class="tcat-header"><div class="script-name" style="font-size: 1em;">Themes</div></div>
-                <div class="trow">
-                    <div>
-                        <div class="script-name">Midnight Rose Theme</div>
-                        <div class="description">A neon pink aesthetic theme.</div>
-                        <img src="midnightRoseLatest.png" class="preview-img" alt="Theme Preview" onclick="openImage(this.src)">
-                    </div>
-                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidnightRoseChatTheme.user.js" target="_blank" class="button install-link">Install</a>
-                </div>
-            </section>
+            <div class="thead">
+                <h2>Userscript Directory</h2>
+            </div>
 
             <section id="seq-section">
-                <div class="tcat-header"><div class="script-name" style="font-size: 1em;">Sequencer</div></div>
+                <div class="tcat-header">
+                    <div class="script-name" style="font-size: 1em;">Sequencer</div>
+                </div>
                 <div class="trow">
                     <div>
                         <div class="script-name">OS Midi Map Fix</div>
                         <div class="description">Updates instrument mapping to MIDI standards.</div>
                     </div>
-                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js" target="_blank" class="button install-link">Install</a>
+                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidiMapFix.user.js"
+                        target="_blank" class="button install-link">Install</a>
                 </div>
 
                 <div class="trow">
@@ -311,18 +362,24 @@
                         <div class="script-name">OS Slider Text Input</div>
                         <div class="description">OS slider text input (damn, why are you guys so picky?)</div>
                     </div>
-                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osSliderTextInput.user.js" target="_blank" class="button install-link">Install</a>
+                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osSliderTextInput.user.js"
+                        target="_blank" class="button install-link">Install</a>
                 </div>
-            </section>
 
-            <section id="misc-section">
-                <div class="tcat-header"><div class="script-name" style="font-size: 1em;">Miscellaneous</div></div>
                 <div class="trow">
                     <div>
                         <div class="script-name">OS Adblock</div>
-                        <div class="description">Cleans up workspace ads.</div>
+                        <div class="description">Removes those pesky ram-eating ads</div>
                     </div>
-                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osAdBlock.user.js" target="_blank" class="button install-link">Install</a>
+                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osAdBlock.user.js"
+                        target="_blank" class="button install-link">Install</a>
+                </div>
+            </section>
+
+
+            <section id="chat-section">
+                <div class="tcat-header">
+                    <div class="script-name" style="font-size: 1em;">Chat</div>
                 </div>
                 <div class="trow">
                     <div>
@@ -330,7 +387,48 @@
                         <div class="description">Floating media embedder for chat.</div>
                         <img src="osEmbeds.png" class="preview-img" alt="Embeds Preview" onclick="openImage(this.src)">
                     </div>
-                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osEmbeds.user.js" target="_blank" class="button install-link">Install</a>
+                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osEmbeds.user.js"
+                        target="_blank" class="button install-link">Install</a>
+                </div>
+                <div class="trow">
+                    <div>
+                        <div class="script-name">OS Floating Chat Blocker</div>
+                        <div class="description">Block users with a persistent UI.</div>
+                    </div>
+                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js"
+                        target="_blank" class="button install-link">Install</a>
+                </div>
+                <div class="trow">
+                    <div>
+                        <div class="script-name">OS Chat BBCode Editor</div>
+                        <div class="description">Adds a full BBCode editor interface.</div>
+                    </div>
+                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osBBcodeEditor.user.js"
+                        target="_blank" class="button install-link">Install</a>
+                </div>
+                <div class="trow">
+                    <div>
+                        <div class="script-name">OS Chat Name Styler</div>
+                        <div class="description">Apply customizable styles to usernames.</div>
+                    </div>
+                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osSliderTextInput.user.js"
+                        target="_blank" class="button install-link">Install</a>
+                </div>
+            </section>
+
+            <section id="theme-section">
+                <div class="tcat-header">
+                    <div class="script-name" style="font-size: 1em;">Themes</div>
+                </div>
+                <div class="trow">
+                    <div>
+                        <div class="script-name">Midnight Rose Theme</div>
+                        <div class="description">A neon pink aesthetic theme.</div>
+                        <img src="midnightRoseLatest.png" class="preview-img" alt="Theme Preview"
+                            onclick="openImage(this.src)">
+                    </div>
+                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidnightRoseChatTheme.user.js"
+                        target="_blank" class="button install-link">Install</a>
                 </div>
             </section>
         </div>
@@ -368,7 +466,5 @@
         }
     </script>
 </body>
+
 </html>
-
-
-
