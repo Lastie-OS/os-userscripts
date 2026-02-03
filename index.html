@@ -26,8 +26,8 @@
     {
       "@context": "https://schema.org/",
       "@type": "SoftwareApplication",
-      "name": "OS Premium Userscripts",
-      "operatingSystem": "Windows, macOS, Linux",
+      "name": "Online Sequencer Userscripts",
+      "operatingSystem": "Windows, macOS, Linux, ChromeOS, Android",
       "applicationCategory": "BrowserExtension",
       "offers": {
         "@type": "Offer",
@@ -277,12 +277,25 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 1001;
-            max-width: 90%;
-            max-height: 85vh;
+
+            width: fit-content;
+            max-width: 95vw;
+            max-height: 95vh;
+
             border: 2px solid var(--pink-neon);
             box-shadow: 0 0 30px var(--pink-glow);
             border-radius: 8px;
             background: #000;
+        }
+
+        #modal-img {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 6px;
+            margin: 0 auto;
         }
 
         #modal-img {
@@ -359,19 +372,21 @@
 
                 <div class="trow">
                     <div>
-                        <div class="script-name">OS Slider Text Input</div>
-                        <div class="description">OS slider text input (damn, why are you guys so picky?)</div>
+                        <div class="script-name">OS Adblock</div>
+                        <div class="description">Removes those pesky ram-eating ads</div>
                     </div>
-                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osSliderTextInput.user.js"
+                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osAdBlock.user.js"
                         target="_blank" class="button install-link">Install</a>
                 </div>
 
                 <div class="trow">
                     <div>
-                        <div class="script-name">OS Adblock</div>
-                        <div class="description">Removes those pesky ram-eating ads</div>
+                        <div class="script-name">OS Slider Text Input</div>
+                        <div class="description">OS slider text input (damn, why are you guys so picky?)</div>
+                        <img src="osSliderTextInput.png" class="preview-img" alt="Slider Text Input Preview"
+                            onclick="openImage(this.src)">
                     </div>
-                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osAdBlock.user.js"
+                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osSliderTextInput.user.js"
                         target="_blank" class="button install-link">Install</a>
                 </div>
             </section>
@@ -380,15 +395,6 @@
             <section id="chat-section">
                 <div class="tcat-header">
                     <div class="script-name" style="font-size: 1em;">Chat</div>
-                </div>
-                <div class="trow">
-                    <div>
-                        <div class="script-name">OS Embeds</div>
-                        <div class="description">Floating media embedder for chat.</div>
-                        <img src="osEmbeds.png" class="preview-img" alt="Embeds Preview" onclick="openImage(this.src)">
-                    </div>
-                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osEmbeds.user.js"
-                        target="_blank" class="button install-link">Install</a>
                 </div>
                 <div class="trow">
                     <div>
@@ -412,6 +418,15 @@
                         <div class="description">Apply customizable styles to usernames.</div>
                     </div>
                     <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osSliderTextInput.user.js"
+                        target="_blank" class="button install-link">Install</a>
+                </div>
+                <div class="trow">
+                    <div>
+                        <div class="script-name">OS Embeds</div>
+                        <div class="description">Floating media embedder for chat.</div>
+                        <img src="osEmbeds.png" class="preview-img" alt="Embeds Preview" onclick="openImage(this.src)">
+                    </div>
+                    <a href="https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osEmbeds.user.js"
                         target="_blank" class="button install-link">Install</a>
                 </div>
             </section>
