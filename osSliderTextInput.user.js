@@ -2,8 +2,8 @@
 // @name          OS Slider Text Input
 // @icon          https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace     https://lastie-os.github.io/os-userscripts/
-// @version       2.2.2026
-// @description   OS slider text input (damn, why are you guys so picky?)
+// @version       2.3.2026
+// @description   OS Slider Text Input (damn, why are you guys so picky?)
 // @author        Lastie
 // @match         https://onlinesequencer.net/*
 // @updateURL     https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osSliderTextInput.user.js
@@ -66,29 +66,10 @@
         if (activeTooltip) activeTooltip.remove();
 
         const id = slider.id;
-        let currentValue = parseFloat(slider.value);
+        const oninputAttr = slider.getAttribute('oninput');
+        const funcName = oninputAttr ? oninputAttr.split('(')[0] : null;
 
-        try {
-            if (typeof audioSystem !== 'undefined' && typeof instrument !== 'undefined') {
-                const instData = audioSystem.loadInstrument(instrument);
-                switch (true) {
-                    case id.includes('pan'):
-                        currentValue = instData.pan.pan; break;
-                    case id.includes('reverb_volume'):
-                        currentValue = instData.reverb.volume; break;
-                    case id.includes('distort_volume'):
-                        currentValue = instData.distort.volume; break;
-                    case id.includes('eq_'):
-                        if (instData.eq) {
-                            if (id.includes('high')) currentValue = instData.eq.high;
-                            else if (id.includes('mid')) currentValue = instData.eq.mid;
-                            else if (id.includes('low')) currentValue = instData.eq.low;
-                        }
-                        break;
-                    default: currentValue = instData[propertyMap[id]] ?? currentValue;
-                }
-            }
-        } catch (e) { console.warn("Engine read failed."); }
+        let currentValue = parseFloat(slider.value);
 
         const tooltip = document.createElement('div');
         tooltip.className = 'os-input-tooltip';
@@ -99,18 +80,10 @@
         input.type = 'number';
         input.className = 'os-input-field';
 
-        switch (true) {
-            case id.includes('detune'):
-                input.step = '100'; break;
-            case (id.includes('filter') && !id.includes('_q')):
-                input.step = '200'; break;
-            case (id.includes('attack') || id.includes('decay') || id.includes('sustain') || id.includes('release')):
-                input.step = '0.02'; break;
-            case (id.includes('volume') || id.includes('pan') || id.includes('reverb') || id.includes('distort') || id.includes('bitcrusher')):
-                input.step = '0.1'; break;
-            default:
-                input.step = 'any';
-        }
+        if (id.includes('detune')) input.step = '100';
+        else if (id.includes('filter') && !id.includes('_q')) input.step = '200';
+        else if (id.includes('attack') || id.includes('decay') || id.includes('sustain') || id.includes('release')) input.step = '0.02';
+        else input.step = '0.1';
 
         input.value = currentValue;
 
@@ -122,42 +95,32 @@
         closeBtn.innerText = '×';
         closeBtn.onclick = () => tooltip.remove();
 
-        const updateEngine = (val) => {
+        input.oninput = () => {
+            const val = parseFloat(input.value);
             if (isNaN(val)) return;
 
-            const isCrashRisk = crashProneSliders.has(id) && val < 0;
             const max = parseFloat(slider.getAttribute('max'));
             const min = parseFloat(slider.getAttribute('min'));
 
-            switch (true) {
-                case isCrashRisk:
-                    input.style.backgroundColor = '#c0392b';
-                    hazard.innerText = ' ❗';
-                    hazard.style.display = 'inline';
-                    return;
-                case (val > max || val < min):
-                    input.style.backgroundColor = '#d35400';
-                    hazard.innerText = ' ⚠️';
-                    hazard.style.display = 'inline';
-                    break;
-                default:
-                    input.style.backgroundColor = 'transparent';
-                    hazard.style.display = 'none';
+            if (crashProneSliders.has(id) && val < 0) {
+                input.style.backgroundColor = '#c0392b';
+                hazard.innerText = ' ❗';
+                hazard.style.display = 'inline';
+                return;
+            } else if (val > max || val < min) {
+                input.style.backgroundColor = '#d35400';
+                hazard.innerText = ' ⚠️';
+                hazard.style.display = 'inline';
+            } else {
+                input.style.backgroundColor = 'transparent';
+                hazard.style.display = 'none';
             }
 
-            slider.value = val;
-            slider.dispatchEvent(new Event('input', { bubbles: true }));
-
-            const oninputAttr = slider.getAttribute('oninput');
-            if (oninputAttr) {
-                const funcName = oninputAttr.split('(')[0];
-                if (typeof window[funcName] === 'function') {
-                    window[funcName](instrument, val);
-                }
+            if (funcName) {
+                eval(`${funcName}(instrument, ${val})`);
             }
         };
 
-        input.oninput = () => updateEngine(parseFloat(input.value));
         input.onkeydown = (e) => { if (e.key === 'Enter') tooltip.remove(); };
 
         tooltip.append(input, hazard, closeBtn);
