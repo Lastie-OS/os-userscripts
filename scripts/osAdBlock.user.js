@@ -22,7 +22,7 @@
                 return;
             }
 
-            if (ad.id === 'chat_frame' || ad.src.includes('googleads') || ad.id.includes('ad')) {
+            if (ad.src.includes('googleads') || ad.id.includes('ad')) {
                 ad.remove();
             }
         });
