@@ -8,8 +8,8 @@
 // @match        https://onlinesequencer.net/forum/*
 // @grant        GM_addStyle
 // @run-at       document-end
-// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osForumChatFix.user.js
-// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osForumChatFix.user.js
+// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osForumChatFix.user.js
+// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osForumChatFix.user.js
 // ==/UserScript==
 
 (function() {

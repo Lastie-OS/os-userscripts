@@ -2,15 +2,15 @@
 // @name         OS Floating Chat Blocker
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.3.2026
+// @version      2.3.2026.1
 // @description  A thingy to block idoit's messages in chat
 // @author       LastieOS
 // @match        *://onlinesequencer.net/forum/chat_frame.php*
 // @match        *://seq.onl/forum/chat_frame.php*
 // @grant        none
 // @run-at       document-end
-// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js
-// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osChatBlocker.user.js
+// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osChatBlocker.user.js
+// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osChatBlocker.user.js
 // ==/UserScript==
 
 (function() {

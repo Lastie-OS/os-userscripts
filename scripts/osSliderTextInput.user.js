@@ -6,8 +6,8 @@
 // @description   OS Slider Text Input (damn, why are you guys so picky?)
 // @author        Lastie
 // @match         https://onlinesequencer.net/*
-// @updateURL     https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osSliderTextInput.user.js
-// @downloadURL   https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osSliderTextInput.user.js
+// @updateURL     https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osSliderTextInput.user.js
+// @downloadURL   https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osSliderTextInput.user.js
 // @grant         GM_addStyle
 // ==/UserScript==
 

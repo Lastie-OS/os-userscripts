@@ -2,13 +2,13 @@
 // @name         Online Sequencer: Midnight Rose (Chat)
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026.1
+// @version      2.3.2026.1
 // @description  OS pink chat theme thingy
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/forum/chat_frame.php*
 // @match        *://seq.onl/forum/chat_frame.php*
-// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidnightRoseChatTheme.user.js
-// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/osMidnightRoseChatTheme.user.js
+// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osMidnightRoseChatTheme.user.js
+// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osMidnightRoseChatTheme.user.js
 // @grant        GM_addStyle
 // @run-at       document-idle
 // ==/UserScript==

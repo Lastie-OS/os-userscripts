@@ -2,13 +2,15 @@
 // @name         OS Embeds
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.1.2026.92
+// @version      2.3.2026
 // @description  Floating os media embedder (made with OS Chat in mind, but works in other places)
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/*
 // @match        *://seq.onl/*
 // @grant        GM_addStyle
 // @run-at       document-idle
+// @updateURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osEmbeds.user.js
+// @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osEmbeds.user.js
 // ==/UserScript==
 
 // ver 2.1.2026.83 was the initial release
