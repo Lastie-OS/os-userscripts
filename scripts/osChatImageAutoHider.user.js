@@ -3,7 +3,7 @@
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
 // @version      2.3.2026
-// @description  Replaces .mycode_img elements with a link to their source using alt text as the label.
+// @description  Hides those annoying giant images that ocassionally get put in chat
 // @author       Lastie
 // @match        *://*.onlinesequencer.net/forum/chat_frame.php*
 // @match        *://seq.onl/forum/chat_frame.php*
