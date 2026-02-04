@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         OS Floating Chat Blocker
-// @namespace    http://tampermonkey.net/
-// @version      2.2.2026
-// @description  A thingy to block idoit's messages in chat with minimize and easy-block buttons.
+// @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
+// @namespace    https://lastie-os.github.io/os-userscripts/
+// @version      2.3.2026
+// @description  A thingy to block idoit's messages in chat
 // @author       LastieOS
 // @match        *://onlinesequencer.net/forum/chat_frame.php*
 // @match        *://seq.onl/forum/chat_frame.php*
