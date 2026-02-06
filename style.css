@@ -272,7 +272,7 @@ a:hover {
 details {
     overflow: hidden;
     transition: max-height 0.4s ease-in-out;
-    max-height: 42px; 
+    max-height: 42px;
 }
 
 details[open] {
@@ -307,12 +307,12 @@ details summary::-webkit-details-marker {
     font-size: 0.7em;
     color: var(--pink-neon);
     transition: transform 0.3s ease;
-    transform: rotate(180deg); 
+    transform: rotate(180deg);
     margin-right: 15px;
 }
 
 details[open] .tcat-header::before {
-    transform: rotate(0deg); 
+    transform: rotate(0deg);
 }
 
 .trow {
@@ -320,12 +320,35 @@ details[open] .tcat-header::before {
 }
 
 @keyframes slideFadeIn {
-    from { 
-        opacity: 0; 
-        transform: translateY(-5px) translateX(-5px); 
+    from {
+        opacity: 0;
+        transform: translateY(-5px) translateX(-5px);
     }
-    to { 
-        opacity: 1; 
-        transform: translateY(0) translateX(0); 
+
+    to {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
     }
+}
+
+.hub-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 0, 128, 0.1);
+    border: 2px solid var(--pink-neon);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 0 15px var(--pink-glow);
+}
+
+.hub-button {
+    background: linear-gradient(135deg, #fff, var(--pink-soft)) !important;
+    color: #000 !important;
+    font-weight: 900 !important;
+    padding: 15px 30px !important;
+    font-size: 1.1em !important;
+    margin-top: 10px;
 }
