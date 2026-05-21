@@ -2,7 +2,7 @@
 // @name         OS Floating Chat Blocker
 // @icon         https://github.com/Lastie-OS/os-userscripts/blob/main/icon.png?raw=true
 // @namespace    https://lastie-os.github.io/os-userscripts/
-// @version      2.3.2026.1
+// @version      2026.5.21.1
 // @description  A thingy to block idoit's messages in chat
 // @author       LastieOS
 // @match        *://onlinesequencer.net/forum/chat_frame.php*
