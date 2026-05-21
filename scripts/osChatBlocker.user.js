@@ -13,10 +13,8 @@
 // @downloadURL  https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osChatBlocker.user.js
 // ==/UserScript==
 
-(function() {
-    'use strict';
-
-    let blockedIds = JSON.parse(localStorage.getItem('blockedMemberIds')) || ["9812"];
+(function () {
+    let blockedIds = JSON.parse(localStorage.getItem('blockedMemberIds')) || [""];
     let blockPMs = JSON.parse(localStorage.getItem('blockPMs')) === true;
     let savedPos = JSON.parse(localStorage.getItem('blockerButtonPos')) || { top: '50px', left: '50px' };
     let isMinimized = JSON.parse(localStorage.getItem('blockerMinimized')) === true;
@@ -29,142 +27,216 @@
         }
     };
 
-    const style = document.createElement('style');
-    style.textContent = `
-        .os-block-btn {
-            cursor: pointer;
-            color: #ff71ce;
-            font-size: 10px;
-            margin-left: 6px;
-            text-shadow: 0 0 5px rgba(255, 113, 206, 0.5);
-            font-family: 'Comfortaa', sans-serif;
-            font-weight: bold;
-            display: inline-block;
-            vertical-align: middle;
-        }
-        .os-block-btn:hover { color: #fff; text-shadow: 0 0 8px #ff71ce; }
-
-        /* Sidebar specific button styling */
-        .user .os-block-sidebar {
-            display: none;
-            color: #ff0080;
-            font-size: 9px;
-            margin-top: 2px;
-        }
-        .user:hover .os-block-sidebar { display: block; }
-    `;
-    document.head.appendChild(style);
+    const globalStyle = document.createElement('style');
+    globalStyle.textContent = `
+    .os-block-btn {
+        display: inline-block !important; 
+        width: 18px !important; 
+        height: 18px !important; 
+        line-height: 18px !important; 
+        text-align: center !important; 
+        margin-left: 6px !important; 
+        background: rgba(222, 171, 193, 0.15) !important;
+        color: #eee !important; 
+        font-size: 11px !important; 
+        cursor: pointer !important;
+        border: none;
+        vertical-align: middle;
+        font-family: 'PT Sans', sans-serif; 
+    }
+`;
+    document.head.appendChild(globalStyle);
 
     const host = document.createElement('div');
     host.id = 'blocker-host';
     document.body.appendChild(host);
-    const shadow = host.attachShadow({mode: 'open'});
+    const shadow = host.attachShadow({ mode: 'open' });
+
+    const shadowStyle = document.createElement('style');
+    shadowStyle.textContent = `
+    :host {
+        --bg-glass: rgba(26, 26, 26, 0.85);
+        --header-bg: rgba(43, 44, 47, 0.6);
+        --input-bg: rgba(0, 0, 0, 0.3);
+        --btn-bg: #545558;
+        --glow: #eee;
+    }
+
+    #draggable-window {
+        position: fixed; 
+        z-index: 999999;
+        top: ${savedPos.top}; 
+        left: ${savedPos.left};
+        background: var(--bg-glass); 
+        border: none;
+        padding: 12px; 
+        color: white; 
+        font-family: 'PT Sans', sans-serif; 
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); 
+        transition: width 0.2s ease-in-out;
+        box-sizing: border-box;
+        opacity: .85;
+    }
+
+    #header { 
+        background: var(--header-bg);
+        margin: -12px -12px 12px -12px;
+        padding: 8px 12px; 
+        cursor: move; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center;
+        color: var(--glow); 
+        font-family: 'PT Sans', sans-serif; 
+        font-size: 11px;
+        user-select: none; 
+        letter-spacing: 1px; 
+    }
+
+    #min-toggle { 
+        cursor: pointer; 
+        width: 22px; 
+        height: 22px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        background: var(--btn-bg);
+        color: white;
+        font-family: 'PT Sans', sans-serif;
+        font-size: 14px; 
+    }
+
+    textarea {
+        width: 100%; 
+        height: 70px; 
+        background: var(--input-bg); 
+        color: var(--glow); 
+        border: none; 
+        padding: 8px; 
+        font-family: 'PT Sans', sans-serif; 
+        resize: none; 
+        margin-bottom: 8px; 
+        box-sizing: border-box; 
+        font-size: 12px; 
+        outline: none;
+    }
+    
+    .opt { 
+        font-size: 10px; 
+        margin-bottom: 12px; 
+        display: flex; 
+        align-items: center; 
+        gap: 8px; 
+        color: var(--glow); 
+    }
+
+    input[type="checkbox"] { 
+        cursor: pointer; 
+        accent-color: var(--glow); 
+        width: 14px; 
+        height: 14px; 
+    }
+
+    #save-btn {
+        width: 100%; 
+        background: var(--btn-bg);
+        color: white; 
+        border: none; 
+        padding: 10px; 
+        cursor: pointer; 
+        font-size: 11px;
+        letter-spacing: 1px;
+        font-family: 'PT Sans', sans-serif;
+    }
+`;
+    shadow.appendChild(shadowStyle);
 
     const container = document.createElement('div');
     container.id = 'draggable-window';
 
     const updateUIState = (min) => {
-        const contents = shadow.querySelectorAll('.window-content');
-        contents.forEach(el => el.style.display = min ? 'none' : 'block');
-        container.style.width = min ? '110px' : '230px';
-        shadow.getElementById('min-toggle').innerText = min ? '[+]' : '[−]';
+        const contents = container.querySelectorAll('.window-content');
+        contents.forEach(el => el.style.display = min ? 'none' : '');
+        container.style.width = min ? '140px' : '250px';
+        const toggleBtn = container.querySelector('#min-toggle');
+        if (toggleBtn) toggleBtn.innerText = min ? '+' : '-';
     };
 
-    container.innerHTML = `
-        <style>
-            #draggable-window {
-                position: fixed;
-                z-index: 999999;
-                top: ${savedPos.top};
-                left: ${savedPos.left};
-                background: rgba(10, 10, 12, 0.9);
-                backdrop-filter: blur(8px);
-                border: 1px solid rgba(255, 113, 206, 0.4);
-                border-radius: 10px;
-                padding: 10px;
-                color: white;
-                font-family: 'Comfortaa', sans-serif;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.6);
-                transition: width 0.2s ease-in-out;
-            }
-            #header {
-                cursor: move;
-                font-weight: bold;
-                color: #ff71ce;
-                font-size: 11px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                user-select: none;
-            }
-            #min-toggle { cursor: pointer; padding-left: 10px; }
-            .divider { border-bottom: 1px solid rgba(255, 113, 206, 0.2); margin: 8px 0; }
-            textarea {
-                width: 100%; height: 60px; background: #111; color: #ffb7ce;
-                border: 1px solid rgba(255, 113, 206, 0.3); border-radius: 5px;
-                padding: 5px; font-family: monospace; resize: none; margin-bottom: 8px;
-                box-sizing: border-box; font-size: 11px;
-            }
-            .opt { font-size: 10px; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
-            #save-btn {
-                width: 100%; background: linear-gradient(to right, #ff0080, #ff71ce);
-                color: white; border: none; border-radius: 5px; padding: 6px;
-                font-weight: bold; cursor: pointer; font-size: 10px;
-            }
-        </style>
-        <div id="header">
-            <span>CHAT BLOCKER</span>
-            <span id="min-toggle">[−]</span>
-        </div>
-        <div class="window-content divider"></div>
-        <textarea id="ids" class="window-content" placeholder="IDs here...">${blockedIds.join(', ')}</textarea>
-        <div class="opt window-content">
-            <input type="checkbox" id="pmCheck" ${blockPMs ? 'checked' : ''}>
-            <span>BLOCK PMS</span>
-        </div>
-        <button id="save-btn" class="window-content">SAVE & RELOAD</button>
-    `;
+    const header = document.createElement('div');
+    header.id = 'header';
+    const title = document.createElement('span');
+    title.textContent = 'Chat Blocker';
+    const minToggle = document.createElement('span');
+    minToggle.id = 'min-toggle';
+    minToggle.textContent = '-';
+    header.append(title, minToggle);
 
+    const textarea = document.createElement('textarea');
+    textarea.id = 'ids';
+    textarea.className = 'window-content';
+    textarea.placeholder = 'Comma separated IDs...';
+    textarea.value = blockedIds.join(', ');
+
+    const opt = document.createElement('div');
+    opt.className = 'opt window-content';
+    const pmCheck = document.createElement('input');
+    pmCheck.type = 'checkbox';
+    pmCheck.id = 'pmCheck';
+    pmCheck.checked = blockPMs;
+    const pmLabel = document.createElement('span');
+    pmLabel.textContent = 'FILTER PRIVATE MESSAGES';
+    opt.append(pmCheck, pmLabel);
+
+    const saveBtn = document.createElement('button');
+    saveBtn.id = 'save-btn';
+    saveBtn.className = 'window-content';
+    saveBtn.textContent = 'APPLY & REFRESH';
+
+    container.append(header, textarea, opt, saveBtn);
     shadow.appendChild(container);
+
     updateUIState(isMinimized);
 
-    shadow.getElementById('min-toggle').onclick = () => {
+    minToggle.onclick = () => {
         isMinimized = !isMinimized;
         localStorage.setItem('blockerMinimized', isMinimized);
         updateUIState(isMinimized);
     };
 
-    shadow.getElementById('save-btn').onclick = () => {
-        const val = shadow.getElementById('ids').value;
-        const list = val.split(',').map(s => s.trim()).filter(s => s);
+    saveBtn.onclick = () => {
+        const list = textarea.value.split(',').map(s => s.trim()).filter(s => s);
         localStorage.setItem('blockedMemberIds', JSON.stringify(list));
-        localStorage.setItem('blockPMs', shadow.getElementById('pmCheck').checked);
+        localStorage.setItem('blockPMs', pmCheck.checked);
         location.reload();
     };
 
     let dragging = false, relX = 0, relY = 0;
-    shadow.getElementById('header').onmousedown = (e) => {
+    header.addEventListener('mousedown', (e) => {
         dragging = true;
-        relX = e.clientX - container.getBoundingClientRect().left;
-        relY = e.clientY - container.getBoundingClientRect().top;
-    };
+        const rect = container.getBoundingClientRect();
+        relX = e.clientX - rect.left;
+        relY = e.clientY - rect.top;
+        e.preventDefault();
+    });
 
-    document.addEventListener('mousemove', (e) => {
+    window.addEventListener('mousemove', (e) => {
         if (!dragging) return;
         container.style.left = (e.clientX - relX) + 'px';
         container.style.top = (e.clientY - relY) + 'px';
     });
 
-    document.addEventListener('mouseup', () => {
+    window.addEventListener('mouseup', () => {
         if (dragging) {
             dragging = false;
-            localStorage.setItem('blockerButtonPos', JSON.stringify({ top: container.style.top, left: container.style.left }));
+            localStorage.setItem('blockerButtonPos', JSON.stringify({
+                top: container.style.top,
+                left: container.style.left
+            }));
         }
     });
 
     const applyFilters = (node) => {
         if (!node || node.nodeType !== 1) return;
-
         const chats = node.classList?.contains('chat') ? [node] : node.querySelectorAll('.chat');
         chats.forEach(c => {
             const link = c.querySelector('a[href*="/members/"]');
@@ -177,27 +249,11 @@
                 if (!c.querySelector('.os-block-btn')) {
                     const b = document.createElement('span');
                     b.className = 'os-block-btn';
-                    b.innerText = '[✖]';
-                    b.onclick = () => blockUser(id);
+                    b.innerText = '✖';
+                    b.color = '#ff0000';
+                    b.onclick = (e) => { e.stopPropagation(); blockUser(id); };
                     link.parentNode.insertBefore(b, link.nextSibling);
                 }
-            }
-            if (blockPMs) {
-                const text = c.querySelector('.message')?.innerText || "";
-                if (text.includes('->') || text.includes('(whisper)')) c.style.display = 'none';
-            }
-        });
-
-        const users = node.classList?.contains('user') ? [node] : node.querySelectorAll('.user');
-        users.forEach(u => {
-            const link = u.querySelector('a[href*="/members/"]');
-            if (link && !u.querySelector('.os-block-sidebar')) {
-                const id = link.getAttribute('href').split('/').pop();
-                const b = document.createElement('div');
-                b.className = 'os-block-btn os-block-sidebar';
-                b.innerText = 'BLOCK USER';
-                b.onclick = () => blockUser(id);
-                u.appendChild(b);
             }
         });
     };
@@ -205,5 +261,4 @@
     const obs = new MutationObserver(recs => recs.forEach(r => r.addedNodes.forEach(applyFilters)));
     obs.observe(document.body, { childList: true, subtree: true });
     applyFilters(document.body);
-
 })();
