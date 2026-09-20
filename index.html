@@ -2,41 +2,10 @@
 <html lang="en">
 
 <head>
-    <title>Online Sequencer Userscripts | OS Premium</title>
+    <title>Online Sequencer Userscripts</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="title" content="Online Sequencer Userscripts | OS Premium">
-    <meta name="description" content="Enhance your Online Sequencer experience with OS Premium: Chat styling, BBCode editors, MIDI map fixes, and Midnight Rose themes. 100% free!">
-    <meta name="keywords" content="Online Sequencer, userscripts, Tampermonkey, OS Chat, BBCode editor, Online Sequencer themes">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://lastie-os.github.io/os-userscripts/">
-    <meta property="og:title" content="OS Userscripts by Lastie">
-    <meta property="og:description" content="Userscripts for Online Sequencer: Chat styling, ad blocking, and MIDI fixes.">
-    <meta property="og:image" content="icon.png">
-
-    <link rel="canonical" href="https://lastie-os.github.io/os-userscripts/" />
+    
     <link rel="icon" type="image/png" href="icon.png">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org/",
-      "@type": "SoftwareApplication",
-      "name": "Online Sequencer Userscripts",
-      "operatingSystem": "Windows, macOS, Linux, ChromeOS, Android",
-      "applicationCategory": "BrowserExtension",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Lastie"
-      }
-    }
-    </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=PT+Sans&display=swap" rel="stylesheet">
     
@@ -237,7 +206,7 @@
             backdrop-filter: blur(5px);
         }
 
-        #install-alert, #image-modal {
+        #image-modal {
             display: none;
             position: fixed;
             top: 50%; left: 50%;
@@ -264,12 +233,6 @@
 <body>
     <div id="overlay" class="overlay" onclick="closeImage()"></div>
 
-    <div id="install-alert">
-        <h2 style="color: var(--pink-neon); font-family: 'PT Sans', sans-serif; margin-top: 0;">INSTALLING?</h2>
-        <p style="color: #fff;">After installing a userscript, you <strong>MAY NEED TO RESTART YOUR BROWSER</strong> for changes to take effect!</p>
-        <button onclick="closeAlert()" class="button" style="margin-top: 15px;">I UNDERSTAND</button>
-    </div>
-
     <div id="image-modal">
         <img id="modal-img" src="" alt="Full Preview">
         <div style="color: var(--pink-soft); text-align: center; padding-top: 10px; font-size: 12px; font-family: 'PT Sans', sans-serif;">
@@ -280,7 +243,6 @@
     <div id="main-container">
         <header id="os_header">
             <h1 class="os_title">Online Sequencer Userscripts</h1>
-            <div class="os_subtitle">OS Premium - Always Free</div>
         </header>
 
         <main id="content">
@@ -454,25 +416,6 @@
     </div>
 
     <script>
-        let installClicked = false;
-        
-        document.querySelectorAll('.install-link').forEach(link => {
-            link.addEventListener('click', () => { installClicked = true; });
-        });
-
-        window.onfocus = function () {
-            if (installClicked) {
-                document.getElementById('overlay').style.display = 'block';
-                document.getElementById('install-alert').style.display = 'block';
-                installClicked = false;
-            }
-        };
-
-        function closeAlert() {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('install-alert').style.display = 'none';
-        }
-
         function openImage(src) {
             document.getElementById('modal-img').src = src;
             document.getElementById('overlay').style.display = 'block';
@@ -480,7 +423,6 @@
         }
 
         function closeImage() {
-            if (document.getElementById('install-alert').style.display === 'block') return;
             document.getElementById('image-modal').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
         }
