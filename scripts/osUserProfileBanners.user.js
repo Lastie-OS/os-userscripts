@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Online Sequencer Theme Members
-// @version     2026.9.28.4
+// @version     2026.9.28.5
 // @match       https://onlinesequencer.net/members/*
 // @author      LastieOS || Maddie
 // @description Adds a cool background banner image thingy!
@@ -14,7 +14,10 @@
   /*                                        ONLY THIS SHOULD BE MODIFIED!!!!                                           */
   const myBannerImageURL = "";
 
-
+  /* Here's a little utility i made so you can upload images for your banner! 
+                  https://file.wintersawakening.site/image-uploader/
+              THE TRAILING SLASH IS IMPORTANT!!!
+  */
 
 
 
