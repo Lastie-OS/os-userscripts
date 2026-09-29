@@ -4,6 +4,8 @@
 // @match       https://onlinesequencer.net/members/*
 // @author      LastieOS || Maddie
 // @description Adds a cool background banner image thingy!
+// @downloadURL    https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osUserProfileBanners.user.js
+// @updateURL      https://github.com/Lastie-OS/os-userscripts/raw/refs/heads/main/scripts/osUserProfileBanners.user.js
 // ==/UserScript==
 
 (function() {
